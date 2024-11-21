@@ -29,7 +29,7 @@ const schema = a.schema({
     .handler(a.handler.function(getWeather)),
 
   chat: a.conversation({
-    aiModel: a.ai.model("Claude 3.5 Sonnet"),
+    aiModel: a.ai.model("Claude 3 Haiku"),
     systemPrompt: `
     You are a helpful assistant.
     `,
@@ -59,7 +59,7 @@ const schema = a.schema({
   generateRecipe: a
     .generation({
       aiModel: a.ai.model("Claude 3 Haiku"),
-      systemPrompt: "You are a helpful assistant that generates recipes.",
+      systemPrompt: "You are a helpful assistant that generates recipes. dont get out of the meal context provide quantities with the ingredients",
     })
     .arguments({
       description: a.string(),
