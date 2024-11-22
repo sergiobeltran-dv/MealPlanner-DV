@@ -8,6 +8,12 @@ body{
 .header .logo{
 width: 110px;
 }
+.main-body{
+    width: 100%;
+}
+.main-container{
+    overflow-x: hidden;
+}
 .header .amplify-nav-link{
     align-items: center;
     font-weight: 500;
@@ -25,6 +31,7 @@ padding: 1rem;
 border-right: solid 1px #ddd;
 height: calc(100vh - 56px);
 width: 300px;
+min-width: 300px;
 }
 .sidebar .nav-separator{
 border-bottom: solid 1px #ddd;
@@ -67,3 +74,9 @@ border-bottom: solid 1px #ddd;
 .create-chat-container button{
     width: 100%;
 }
+
+.chat-index{
+    padding: 1rem;
+}
+.chat-index h2, .chat-index p{ margin-bottom: 0.5rem;}
+.chat-index ul li{padding: 0.5rem 0;}

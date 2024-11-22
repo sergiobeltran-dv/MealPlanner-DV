@@ -51,9 +51,9 @@ export const Header = () => {
 export const Chat = () => {
   return (
     <ConversationsProvider>
-      <Flex direction="row" flex="1">
+      <Flex direction="row" flex="1" className="main-container">
         <Header />
-        <View flex="1">
+        <View className="main-body">
           <Outlet />
         </View>
       </Flex>
