@@ -1,5 +1,3 @@
-### Updated README for **Datavail Meal Planner Bot**
-
 # Datavail Meal Planner Bot
 
 Datavail Meal Planner Bot is a serverless, AI-powered web application that provides users with two core functionalities: a **chat interface** for conversational AI interactions and a **meal generation tool** for creating personalized recipes. The app leverages AWS Amplify for backend management, Amazon S3 for static hosting, Amazon CloudFront for content delivery, Amazon API Gateway and AWS Lambda for backend logic, Amazon DynamoDB for storing chat history, and Amazon Bedrock for AI-powered interactions. With this robust architecture, the app delivers scalable, secure, and efficient services to users.
