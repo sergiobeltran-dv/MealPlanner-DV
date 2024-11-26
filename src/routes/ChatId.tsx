@@ -6,6 +6,19 @@ import { ConversationsContext } from "../components/ConversationsProvider";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
+// Define types for message content
+interface Attachment {
+  type: string;
+  url: string;
+  name?: string;
+}
+
+// interface Location {
+//   name: string;
+//   lat: number;
+//   lng: number;
+// }
+
 export const ChatIdPage = () => {
   const params = useParams();
   const { updateConversation } = React.useContext(ConversationsContext);
@@ -58,7 +71,7 @@ export const ChatIdPage = () => {
                 )}
 
                 {/* Render Attachments */}
-                {messageContent.attachments?.map((attachment, idx) => (
+                {messageContent.attachments?.map((attachment: Attachment, idx: number) => (
                   <div className="attachment" key={idx}>
                     {attachment.type === "image" ? (
                       <img
