@@ -26,6 +26,7 @@ export const ChatIdPage = () => {
       messages={messages}
       handleSendMessage={(message) => {
         sendMessage(message);
+
         // Generate a name for the conversation (only for the first message)
         if (!conversation?.name) {
           client.generations
@@ -42,47 +43,62 @@ export const ChatIdPage = () => {
       }}
       isLoading={isLoading}
       messageRenderer={{
-        text: ({ text }: { text: string }) => (
-          <ReactMarkdown className="markdown" remarkPlugins={[remarkGfm]}>
-            {text}
-          </ReactMarkdown>
-        ),
-        attachment: ({
-          attachment,
-        }: {
-          attachment: { type: string; url: string; name?: string };
-        }) => (
-          <div className="attachment">
-            {attachment.type === "image" ? (
-              <img
-                src={attachment.url}
-                alt={attachment.name ?? "Attachment"}
-                style={{ maxWidth: "100%", borderRadius: "8px" }}
-              />
-            ) : (
-              <a href={attachment.url} target="_blank" rel="noopener noreferrer">
-                {attachment.name ?? "Download Attachment"}
-              </a>
-            )}
-          </div>
-        ),
-        location: ({
-          location,
-        }: {
-          location: { name: string; lat: number; lng: number };
-        }) => (
-          <div className="location">
-            <strong>Suggested Location:</strong>
-            <p>{location.name}</p>
-            <a
-              href={`https://www.google.com/maps/search/?api=1&query=${location.lat},${location.lng}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View on Google Maps
-            </a>
-          </div>
-        ),
+        text: ({ text }) => {
+          try {
+            // Parse JSON content to extract rich data (attachments, locations, etc.)
+            const messageContent = JSON.parse(text);
+
+            return (
+              <div>
+                {/* Render Markdown if present */}
+                {messageContent.markdown && (
+                  <ReactMarkdown className="markdown" remarkPlugins={[remarkGfm]}>
+                    {messageContent.markdown}
+                  </ReactMarkdown>
+                )}
+
+                {/* Render Attachments */}
+                {messageContent.attachments?.map((attachment, idx) => (
+                  <div className="attachment" key={idx}>
+                    {attachment.type === "image" ? (
+                      <img
+                        src={attachment.url}
+                        alt={attachment.name ?? "Attachment"}
+                        style={{ maxWidth: "100%", borderRadius: "8px" }}
+                      />
+                    ) : (
+                      <a href={attachment.url} target="_blank" rel="noopener noreferrer">
+                        {attachment.name ?? "Download Attachment"}
+                      </a>
+                    )}
+                  </div>
+                ))}
+
+                {/* Render Locations */}
+                {messageContent.location && (
+                  <div className="location">
+                    <strong>Suggested Location:</strong>
+                    <p>{messageContent.location.name}</p>
+                    <a
+                      href={`https://www.google.com/maps/search/?api=1&query=${messageContent.location.lat},${messageContent.location.lng}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      View on Google Maps
+                    </a>
+                  </div>
+                )}
+              </div>
+            );
+          } catch (err) {
+            // If the message is not JSON, render as plain Markdown
+            return (
+              <ReactMarkdown className="markdown" remarkPlugins={[remarkGfm]}>
+                {text}
+              </ReactMarkdown>
+            );
+          }
+        },
       }}
     />
   );
