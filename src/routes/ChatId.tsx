@@ -4,6 +4,7 @@ import { client, useAIConversation } from "../client";
 import { AIConversation } from "@aws-amplify/ui-react-ai";
 import { ConversationsContext } from "../components/ConversationsProvider";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 export const ChatIdPage = () => {
   const params = useParams();
@@ -25,7 +26,7 @@ export const ChatIdPage = () => {
       messages={messages}
       handleSendMessage={(message) => {
         sendMessage(message);
-        // only run this on the first message...
+        // Generate a name for the conversation (only for the first message)
         if (!conversation?.name) {
           client.generations
             .chatNamer({
@@ -41,7 +42,39 @@ export const ChatIdPage = () => {
       }}
       isLoading={isLoading}
       messageRenderer={{
-        text: ({ text }) => <ReactMarkdown>{text}</ReactMarkdown>,
+        text: ({ text }) => (
+          <ReactMarkdown className="markdown" remarkPlugins={[remarkGfm]}>
+            {text}
+          </ReactMarkdown>
+        ),
+        attachment: ({ attachment }) => (
+          <div className="attachment">
+            {attachment.type === "image" ? (
+              <img
+                src={attachment.url}
+                alt={attachment.name ?? "Attachment"}
+                style={{ maxWidth: "100%", borderRadius: "8px" }}
+              />
+            ) : (
+              <a href={attachment.url} target="_blank" rel="noopener noreferrer">
+                {attachment.name ?? "Download Attachment"}
+              </a>
+            )}
+          </div>
+        ),
+        location: ({ location }) => (
+          <div className="location">
+            <strong>Suggested Location:</strong>
+            <p>{location.name}</p>
+            <a
+              href={`https://www.google.com/maps/search/?api=1&query=${location.lat},${location.lng}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View on Google Maps
+            </a>
+          </div>
+        ),
       }}
     />
   );
