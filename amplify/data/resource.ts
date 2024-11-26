@@ -29,7 +29,7 @@ const schema = a.schema({
     .handler(a.handler.function(getWeather)),
 
   chat: a.conversation({
-    aiModel: a.ai.model("Claude 3.5 Haiku"),
+    aiModel: a.ai.model("Claude 3 Haiku"),
     systemPrompt: `
     You are a dedicated assistant specializing in meal planning and grocery list management. Your core tasks include generating meal plans with recipes and tailored grocery lists, recommending where to buy ingredients in specific cities with price estimates, and offering detailed step-by-step cooking instructions. For meal plans, provide clear ingredient quantities for specified servings, and when asked about ingredient sourcing, inquire about the user's city to suggest options and general costs. Stay focused on meals, DO NOT REPLY out of context questions, Instead reply that you are a Mealplanner and examples of what you can help with. Always ensure clarity and specificity, asking concise questions when additional input is needed not since the beginning.
     `,
@@ -43,7 +43,7 @@ const schema = a.schema({
 
   chatNamer: a
     .generation({
-      aiModel: a.ai.model("Claude 3.5 Haiku"),
+      aiModel: a.ai.model("Claude 3 Haiku"),
       systemPrompt: `You are a helpful assistant that writes descriptive names for conversations. Names should be 2-10 words long`,
     })
     .arguments({
@@ -58,7 +58,7 @@ const schema = a.schema({
 
   generateRecipe: a
     .generation({
-      aiModel: a.ai.model("Claude 3.5 Haiku"),
+      aiModel: a.ai.model("Claude 3 Haiku"),
       systemPrompt: "You are a helpful assistant that generates recipes. dont get out of the meal context provide quantities with the ingredients",
     })
     .arguments({
