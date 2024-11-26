@@ -42,12 +42,16 @@ export const ChatIdPage = () => {
       }}
       isLoading={isLoading}
       messageRenderer={{
-        text: ({ text }) => (
+        text: ({ text }: { text: string }) => (
           <ReactMarkdown className="markdown" remarkPlugins={[remarkGfm]}>
             {text}
           </ReactMarkdown>
         ),
-        attachment: ({ attachment }) => (
+        attachment: ({
+          attachment,
+        }: {
+          attachment: { type: string; url: string; name?: string };
+        }) => (
           <div className="attachment">
             {attachment.type === "image" ? (
               <img
@@ -62,7 +66,11 @@ export const ChatIdPage = () => {
             )}
           </div>
         ),
-        location: ({ location }) => (
+        location: ({
+          location,
+        }: {
+          location: { name: string; lat: number; lng: number };
+        }) => (
           <div className="location">
             <strong>Suggested Location:</strong>
             <p>{location.name}</p>
