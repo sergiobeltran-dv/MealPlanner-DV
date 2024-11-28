@@ -26,8 +26,9 @@ export function RecipeGenerator() {
   };
 
   return (
-    <Flex direction="column" flex="1">
-      <Flex direction="row" padding="large">
+    <Flex direction="column" flex="1" className="recipe-page">
+      <Flex direction="row" padding="small">
+      <Flex className="recipeGenerator-search">
         <TextAreaField
           autoResize
           flex="1"
@@ -38,6 +39,7 @@ export function RecipeGenerator() {
           labelHidden
         />
         <Button onClick={handleClick}>Generate recipe</Button>
+        </Flex>
       </Flex>
       {isLoading ? (
         <Loader variation="linear" />
