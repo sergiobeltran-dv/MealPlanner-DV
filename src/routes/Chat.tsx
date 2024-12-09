@@ -1,18 +1,25 @@
-import * as React from "react";
+// import * as React from "react";
+import React, { useState } from 'react';
+import { NavLink } from "react-router-dom";
 import { Link, Outlet } from "react-router-dom";
 import { View, Button, Flex, ScrollView, Text } from "@aws-amplify/ui-react";
 import { CreateChat } from "../components/CreateChat";
+import { FiX, FiMenu } from "react-icons/fi";
+import { Heading } from '@aws-amplify/ui-react';
 import {
   ConversationsContext,
   ConversationsProvider,
 } from "../components/ConversationsProvider";
 
 export const Header = () => {
+
+
   const { conversations, deleteConversation } =
     React.useContext(ConversationsContext);
 
   return (
     <Flex direction="column" className="sidebar">
+      <Heading level={5}>Chat History</Heading>
       <ScrollView flex="1">
         <Flex direction="column">
           {conversations.map((conversation) => (
@@ -35,7 +42,7 @@ export const Header = () => {
               <Button
                 onClick={() => deleteConversation({ id: conversation.id })}
               >
-                X
+                <FiX />
               </Button>
             </Flex>
           ))}
@@ -49,12 +56,29 @@ export const Header = () => {
 };
 
 export const Chat = () => {
+  
+  const [isClassAdded, setIsClassAdded] = useState(true);
+  const toggleClass = () => {
+    setIsClassAdded(prevState => !prevState); // Toggle the boolean state
+  };
+
   return (
     <ConversationsProvider>
-      <Flex direction="row" flex="1" className="main-container">
+      <Flex direction="row" flex="1" className={`main-container ${isClassAdded ? 'left-slide-open' : 'left-slide-close'}`}>
+        <Button onClick={toggleClass} className='toggle-button'> 
+          <FiMenu  />
+        </Button>
         <Header />
         <View className="main-body">
+        
           <Outlet />
+
+          <Flex direction="row" className='footer'>
+
+          <NavLink to="/chat">Chat</NavLink>
+          <CreateChat />
+          <NavLink to="/recipe-generator">Recipe generator</NavLink>
+          </Flex>
         </View>
       </Flex>
     </ConversationsProvider>

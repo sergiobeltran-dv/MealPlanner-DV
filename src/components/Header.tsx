@@ -34,6 +34,9 @@ export const navLinkTheme = defineComponentTheme({
 export const Header = () => {
   // const { colorMode, setColorMode } = React.useContext(ThemeContext);
 
+ 
+
+
   return (
     <Flex
       direction="row"
@@ -43,6 +46,7 @@ export const Header = () => {
      className="header"
       
     >
+       
       <Flex direction="row" gap="small" color="font.primary">
         <img  src={mainLogo} alt="fireSpot" className="logo"/>
         {/* <Logo width="2rem" height="2rem" /> */}
@@ -53,7 +57,7 @@ export const Header = () => {
         </Button> */}
         
       </Flex>
-      <Flex direction="row">
+      <Flex direction="row" className="top-link-web">
       <NavLink
         className={({ isActive }) =>
           navLinkTheme.className({ _modifiers: { active: isActive } })

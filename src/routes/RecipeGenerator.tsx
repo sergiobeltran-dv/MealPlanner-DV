@@ -1,5 +1,7 @@
 "use client";
 import * as React from "react";
+import { CreateChat } from "../components/CreateChat";
+import { NavLink } from "react-router-dom";
 import Markdown from "react-markdown";
 import {
   Button,
@@ -62,6 +64,14 @@ export function RecipeGenerator() {
           </ScrollView>
         </>
       )}
+
+      <Flex direction="row" className='footer'>
+
+      <NavLink to="/chat">Chat</NavLink>
+     
+      </Flex>
     </Flex>
+
+
   );
 }

@@ -4,12 +4,14 @@ body{
 .header{background: #fff; border-bottom: solid 1px #ddd;
     justify-content: space-between;
     height: 3.5rem;
+    padding-left: 54px !important;
 }
 .header .logo{
 width: 110px;
 }
 .main-body{
     width: 100%;
+    position: relative;
 }
 .main-container{
     overflow-x: hidden;
@@ -24,6 +26,21 @@ width: 110px;
     background: transparent !important;
     border-bottom: solid 2px #0d4c8f;
 }
+.header .amplify-button{
+  white-space:nowrap;
+  padding: 0.25rem 0.5rem;
+  padding-bottom: 8px;
+}
+
+.left-slide-close{
+  gap: 0;
+}
+.left-slide-close .sidebar{
+  margin-left: 0; 
+}
+.left-slide-open .sidebar{
+  margin-left: -300px;
+}
 
 .sidebar{
 background: #fff;
@@ -32,6 +49,9 @@ border-right: solid 1px #ddd;
 height: calc(100vh - 56px);
 width: 300px;
 min-width: 300px;
+transition: all 500ms;
+position: absolute;
+z-index: 9;
 }
 .sidebar .nav-separator{
 border-bottom: solid 1px #ddd;
@@ -44,11 +64,13 @@ border-bottom: solid 1px #ddd;
     font-size: 14px;
 }
 .nav-separator .amplify-button{
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    font-size: 16px;
 }
 .amplify-ai-conversation{
-    height: calc(100vh - 56px);
+    height: calc(100vh - 112px);
 }
 
 .amplify-ai-conversation__message--user{
@@ -71,12 +93,19 @@ border-bottom: solid 1px #ddd;
     border: solid 1px #cce1ef;
 }
 .amplify-ai-conversation__message--assistant .amplify-avatar{background: #0D4C8F;}
+.create-chat-container{
+  display: none;
+}
 .create-chat-container button{
     width: 100%;
 }
 
 .chat-index{
     padding: 1rem;
+    overflow: auto;
+    position: relative;
+    height:calc(100vh - 112px);
+    margin-top: 8px;
 }
 .chat-index h2, .chat-index p{ margin-bottom: 0.5rem;}
 .chat-index ul li{padding: 0.5rem 0;}
@@ -84,7 +113,7 @@ border-bottom: solid 1px #ddd;
 .recipeGenerator-search{
   background: #fff;
   border-radius: 4px;
-  padding: 1rem;
+  padding: 0.5rem;
   width: 100%;
 }
 .recipe-page{
@@ -177,3 +206,89 @@ font-weight: bold;
     background-color: #f1f1f1;
   }
     
+
+  button{
+    padding: 0.25rem;
+  }
+  button:focus{
+    box-shadow: none !important;
+  }
+  .toggle-button{
+    width: 32px;
+    height: 32px;
+    left: 10px;
+    top: 12px;
+    position: absolute;
+    cursor: pointer;
+    padding: 0;
+    font-size: 20px;
+    z-index: 9;
+  }
+
+/* -- recipe Generator page ---*/
+.recipe-page .amplify-scrollview{
+  height: calc(100vh - 220px);
+}
+
+  .footer{
+    background: #fff;
+    border-top: solid 1px #fff;
+    height: 48px;
+    border-top: solid 1px #ddd;
+    padding:0.5rem  0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+ .footer button{
+  padding: 0.25rem 0.5rem !important;
+  font-size: 14px;
+  height: 32px !important;
+ }
+ .footer a{
+  height: 32px;
+  padding: 0.25rem 0.5rem !important;
+  font-size: 14px;
+  border-radius: 0.25rem;
+  border: solid 1px #89949f;
+  color: #0d1926;
+  font-weight: bold;
+  text-decoration: none;
+ }
+ .top-link-web{
+  display: none;
+ }
+  @media only screen and (min-width: 991px) {
+  .sidebar{
+    position: relative;
+    height: calc(100vh - 56px);
+  }
+  .left-slide-close .sidebar{
+    margin-left: -300px; 
+  }
+  .left-slide-open .sidebar{
+    margin-left: 0;
+  }
+  .chat-index{
+    height: calc(100% - 10px);
+  }
+  .amplify-ai-conversation{
+    height: calc(100vh - 56px);
+}
+.top-link-web{
+  display: flex;
+ }
+  .create-chat-container{
+    display: block;
+  }
+
+    .footer{
+      display: none;
+    }
+    .recipeGenerator-search{
+      padding: 1rem;
+    }
+    .recipe-page .amplify-scrollview{
+      height: calc(100vh - 170px);
+    }
+  }
