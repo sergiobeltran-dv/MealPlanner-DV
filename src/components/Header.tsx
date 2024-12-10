@@ -6,8 +6,10 @@ import { Button, Flex } from "@aws-amplify/ui-react";
 import { signOut } from "aws-amplify/auth";
 // import { Logo } from "./Logo";
 import mainLogo from'../../public/datavail-logo.svg';
+import { useLocation } from 'react-router-dom';
 
 import { defineComponentTheme } from "@aws-amplify/ui-react/server";
+import { ChatIdPage } from "../routes/ChatId";
 export const navLinkTheme = defineComponentTheme({
   name: "nav-link",
   theme(tokens) {
@@ -33,9 +35,10 @@ export const navLinkTheme = defineComponentTheme({
 
 export const Header = () => {
   // const { colorMode, setColorMode } = React.useContext(ThemeContext);
-
- 
-
+  const location = useLocation();
+  const headerClass = (location.pathname === '/' || location.pathname === '/recipe-generator') 
+    ? 'header' 
+    : 'header chat-header';
 
   return (
     <Flex
@@ -43,7 +46,7 @@ export const Header = () => {
       width="100vw"
       padding="small"
       // backgroundColor="background.secondary"
-     className="header"
+     className={headerClass}
       
     >
        

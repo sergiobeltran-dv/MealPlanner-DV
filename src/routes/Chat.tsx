@@ -72,7 +72,7 @@ export const Chat = () => {
         <View className="main-body">
         
           <Outlet />
-
+          
           <Flex direction="row" className='footer'>
 
           <NavLink to="/chat">Chat</NavLink>

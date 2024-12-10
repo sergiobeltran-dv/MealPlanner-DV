@@ -12,6 +12,7 @@ import { ThemeProvider } from "./components/ThemeProvider.tsx";
 import Root from "./routes/Root.tsx";
 import { Chat } from "./routes/Chat.tsx";
 import { RecipeGenerator } from "./routes/RecipeGenerator.tsx";
+import { Home } from "./routes/Home.tsx";
 import { ChatIdPage } from "./routes/ChatId.tsx";
 import { ChatIndexPage } from "./routes/ChatIndex.tsx";
 
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <Root />,
     children: [
+      {
+        path: "",
+        element: <Home />,
+      },
       {
         path: "chat",
         element: <Chat />,
