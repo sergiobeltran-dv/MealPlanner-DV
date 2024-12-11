@@ -1,5 +1,4 @@
 "use client";
-import * as React from "react";
 import { NavLink } from "react-router-dom";
 import {Flex } from "@aws-amplify/ui-react";
 export function Home() {

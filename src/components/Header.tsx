@@ -9,7 +9,6 @@ import mainLogo from'../../public/datavail-logo.svg';
 import { useLocation } from 'react-router-dom';
 
 import { defineComponentTheme } from "@aws-amplify/ui-react/server";
-import { ChatIdPage } from "../routes/ChatId";
 export const navLinkTheme = defineComponentTheme({
   name: "nav-link",
   theme(tokens) {
