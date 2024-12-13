@@ -34,6 +34,7 @@ export const ChatIdPage = () => {
   });
 
   return (
+    <div className="innerchat-page-scroll">
     <AIConversation
       allowAttachments
       messages={messages}
@@ -114,5 +115,7 @@ export const ChatIdPage = () => {
         },
       }}
     />
+    </div>
   );
+  
 };
