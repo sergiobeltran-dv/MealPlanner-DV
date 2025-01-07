@@ -75,13 +75,6 @@ border-bottom: solid 1px #ddd;
 .amplify-ai-conversation{
     height: calc(100vh - 104px);
 }
-.amplify-ai-conversation .amplify-dropzone .amplify-textarea{
-      resize: none !important;
-    min-height: 42px !important;
-    height: 42px !important;
-    line-height: 18px;
-    font-size: 14px !important;
-}
 
 .amplify-ai-conversation__message--user{
     flex-direction: row-reverse;
@@ -301,12 +294,4 @@ font-weight: bold;
     .recipe-page .amplify-scrollview{
       height: calc(100vh - 170px);
     }
-  }
-
-.innerchat-page-scroll .amplify-scrollview{
-  overflow: hidden;
-}
-  .innerchat-page-scroll .amplify-ai-conversation__message__list{
-    height: 100%;
-  overflow: auto;
   }
