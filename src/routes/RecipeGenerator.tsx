@@ -22,16 +22,12 @@ interface RecipeData {
 }
 
 export function RecipeGenerator() {
-  const [description, setDescription] = React.useState("");
-  const [{ data, isLoading, hasError, ...rest }, generateRecipe] =
-    useAIGeneration<RecipeData>("generateRecipe");
+  const [{ data = {}, isLoading, hasError }, generateRecipe] =
+    useAIGeneration<{ data: RecipeData }>("generateRecipe");
 
-  console.log({ rest });
-
-  const handleClick = async () => {
-    generateRecipe({ description });
-  };
-
+  // Type assertion for data
+  const recipeData = data as RecipeData;
+  
   return (
     <Flex direction="column" flex="1" className="recipe-page">
       <Flex direction="row" padding="small">
@@ -54,17 +50,17 @@ export function RecipeGenerator() {
         <>
           {/* {hasError ? <Text>{message}</Text> : null} */}
           <ScrollView padding="large">
-            <Heading level={2}>{data?.name}</Heading>
+            <Heading level={2}>{recipeData.name}</Heading>
 
             <View as="ul">
-              {data?.ingredients?.map((ingredient: string) => (
+              {recipeData.ingredients?.map((ingredient: string) => (
                 <Text as="li" key={ingredient}>
                   {ingredient}
                 </Text>
               ))}
             </View>
             <View color="font.primary">
-              <Markdown>{data?.instructions}</Markdown>
+              <Markdown>{recipeData.instructions}</Markdown>
             </View>
           </ScrollView>
         </>

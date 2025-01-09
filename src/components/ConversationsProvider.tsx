@@ -4,11 +4,17 @@ import { client } from "../client";
 import { useNavigate } from "react-router-dom";
 
 interface ConversationContextType {
+  conversations: Schema["chat"]["type"][];
   updateConversation: (conversation: { id: string; name: string }) => void;
+  createConversation: () => Promise<Schema["chat"]["type"] | undefined>;
+  deleteConversation: (input: { id: string }) => void;
 }
 
 export const ConversationsContext = React.createContext<ConversationContextType>({
+  conversations: [],
   updateConversation: () => {},
+  createConversation: async () => undefined,
+  deleteConversation: () => {},
 });
 
 export const ConversationsProvider = ({
@@ -57,14 +63,15 @@ export const ConversationsProvider = ({
 
   const createConversation = async () => {
     const { data: conversation } = await client.conversations.chat.create({
-      content: "Hello! I'm your meal planning assistant. I can help you with:\n" +
+      initialMessage: {
+        text: "Hello! I'm your meal planning assistant. I can help you with:\n" +
               "- Creating personalized meal plans\n" +
               "- Finding and sharing recipes with detailed cooking instructions\n" +
               "- Making grocery shopping lists\n" +
               "- Providing nutritional information and advice\n" +
               "- Offering cooking tips and techniques\n" +
-              "How can I assist you with your meal planning today?",
-      role: "assistant"
+              "How can I assist you with your meal planning today?"
+      }
     });
     
     if (conversation) {

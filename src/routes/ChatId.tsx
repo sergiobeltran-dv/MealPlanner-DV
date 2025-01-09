@@ -10,6 +10,7 @@ import * as pdfjsLib from 'pdfjs-dist';
 import { UserPreferencesContext } from "../contexts/UserPreferencesContext";
 import { getSeason, getCurrentMealTime, getMacrosByDiet } from '../utils/mealContextHelpers';
 import { FiPaperclip, FiFile } from "react-icons/fi";
+import { TextItem, TextMarkedContent } from 'pdfjs-dist/types/src/display/api';
 
 // Set worker path
 pdfjsLib.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.js`;
@@ -31,6 +32,7 @@ interface Attachment {
 interface MessageContent {
   text?: string;
   attachment?: File;
+  toolResult?: any; // Add required property
 }
 
 interface SendMessageParams {
@@ -80,7 +82,12 @@ export const ChatIdPage = () => {
           const page = await pdf.getPage(i);
           const textContent = await page.getTextContent();
           const pageText = textContent.items
-            .map((item: PDFTextItem) => item.str)
+            .map((item: TextItem | TextMarkedContent) => {
+              if ('str' in item) {
+                return item.str;
+              }
+              return '';
+            })
             .join(' ');
           fullText += `Page ${i}:\n${pageText}\n\n`;
         }
@@ -98,7 +105,6 @@ export const ChatIdPage = () => {
   };
 
   // Hidden file inputs
-  const imageInputRef = React.useRef<HTMLInputElement>(null);
   const pdfInputRef = React.useRef<HTMLInputElement>(null);
 
   // Update the handleSendMessage type in AIConversation props
