@@ -1,6 +1,7 @@
 import React from "react";
 import { Schema } from "../../amplify/data/resource";
 import { client } from "../client";
+import { useNavigate } from "react-router-dom";
 
 interface ConversationsContextType {
   conversations: Schema["chat"]["type"][];
@@ -28,6 +29,7 @@ export const ConversationsContext =
 export const ConversationsProvider = ({
   children,
 }: React.PropsWithChildren) => {
+  const navigate = useNavigate();
   const [conversations, setConversations] = React.useState<
     Schema["chat"]["type"][]
   >([]);
@@ -65,12 +67,29 @@ export const ConversationsProvider = ({
     console.log({ data });
 
     setConversations((prev) => prev.filter((c) => c.id !== id));
+    navigate('/chat');
   };
 
   const createConversation = async () => {
-    const { data: conversation } = await client.conversations.chat.create();
+    const { data: conversation } = await client.conversations.chat.create({
+      content: "Hello! I'm your meal planning assistant. I can help you with:\n" +
+              "- Creating personalized meal plans\n" +
+              "- Finding and sharing recipes with detailed cooking instructions\n" +
+              "- Making grocery shopping lists\n" +
+              "- Providing nutritional information and advice\n" +
+              "- Offering cooking tips and techniques\n" +
+              "How can I assist you with your meal planning today?",
+      role: "assistant"
+    });
+    
     if (conversation) {
       setConversations((prev) => [conversation, ...prev]);
+      const newChatUrl = `/chat/${conversation.id}`;
+      if (window.location.pathname.startsWith('/chat/')) {
+        window.location.href = newChatUrl;
+      } else {
+        navigate(newChatUrl, { replace: true });
+      }
       return conversation;
     }
   };

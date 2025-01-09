@@ -42,7 +42,7 @@ const schema = a.schema({
   }),
 
   chatNamer: a
-    .generation({
+    .function({
       aiModel: a.ai.model("Claude 3 Haiku"),
       systemPrompt: `You are a helpful assistant that writes descriptive names for conversations. Names should be 2-10 words long`,
     })
@@ -54,7 +54,7 @@ const schema = a.schema({
         name: a.string(),
       })
     )
-    .authorization((allow) => [allow.authenticated()]),
+    .authorization((allow: any) => [allow.authenticated()]),
 
   generateRecipe: a
     .generation({
@@ -71,7 +71,7 @@ const schema = a.schema({
         instructions: a.string(),
       })
     )
-    .authorization((allow) => allow.authenticated()),
+    .authorization((allow: any) => allow.authenticated()),
 });
 
 export type Schema = ClientSchema<typeof schema>;

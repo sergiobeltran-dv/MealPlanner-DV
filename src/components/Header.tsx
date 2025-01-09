@@ -5,7 +5,7 @@ import { Button, Flex } from "@aws-amplify/ui-react";
 // import { LuMoon, LuSun } from "react-icons/lu";
 import { signOut, getCurrentUser } from 'aws-amplify/auth';
 // import { Logo } from "./Logo";
-import mainLogo from'../../public/datavail-logo.svg';
+const mainLogo = '/datavail-logo.svg';
 import { useLocation } from 'react-router-dom';
 
 import { defineComponentTheme } from "@aws-amplify/ui-react/server";
