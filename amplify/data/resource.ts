@@ -5,7 +5,6 @@ import {
   defineFunction,
   secret,
 } from "@aws-amplify/backend";
-// import { customConversationHandlerFunction } from "../functions/conversation-handler/resource";
 
 export const getWeather = defineFunction({
   name: "getWeather",
@@ -25,11 +24,11 @@ const schema = a.schema({
     .query()
     .arguments({ city: a.string() })
     .returns(a.ref("Temperature"))
-    .authorization((allow) => allow.authenticated())
-    .handler(a.handler.function(getWeather)),
+    .authorization((allow: any) => allow.authenticated())
+    .handler(getWeather),
 
-  chat: a.conversation({
-    aiModel: a.ai.model("Claude 3 Haiku"),
+  chat: a.model('Conversation', {
+    aiModel: 'Claude 3 Haiku',
     systemPrompt: `
     You are a dedicated assistant specializing in meal planning and grocery list management. Your core tasks include generating meal plans with recipes and tailored grocery lists, recommending where to buy ingredients in specific cities with price estimates, and offering detailed step-by-step cooking instructions. For meal plans, provide clear ingredient quantities for specified servings, and when asked about ingredient sourcing, inquire about the user's city to suggest options and general costs. Stay focused on meals, DO NOT REPLY out of context questions, Instead reply that you are a Mealplanner and examples of what you can help with. Always ensure clarity and specificity, asking concise questions when additional input is needed not since the beginning.
     `,
@@ -42,8 +41,8 @@ const schema = a.schema({
   }),
 
   chatNamer: a
-    .function({
-      aiModel: a.ai.model("Claude 3 Haiku"),
+    .model('ChatNamer', {
+      aiModel: 'Claude 3 Haiku',
       systemPrompt: `You are a helpful assistant that writes descriptive names for conversations. Names should be 2-10 words long`,
     })
     .arguments({
@@ -54,11 +53,11 @@ const schema = a.schema({
         name: a.string(),
       })
     )
-    .authorization((allow: any) => [allow.authenticated()]),
+    .authorization((allow: any) => allow.authenticated()),
 
   generateRecipe: a
-    .generation({
-      aiModel: a.ai.model("Claude 3 Haiku"),
+    .model('Recipe', {
+      aiModel: 'Claude 3 Haiku',
       systemPrompt: "You are a helpful assistant that generates recipes. dont get out of the meal context provide quantities with the ingredients",
     })
     .arguments({
@@ -80,7 +79,6 @@ export const data = defineData({
   schema,
   authorizationModes: {
     defaultAuthorizationMode: "userPool",
-    // API Key is used for a.allow.public() rules
     apiKeyAuthorizationMode: {
       expiresInDays: 30,
     },
