@@ -47,15 +47,13 @@ export const ConversationsProvider = ({
   ) => {
     client.conversations.chat.update(conversation).then((res) => {
       if (res.data) {
-        // @ts-expect-error todo
         setConversations((prev) => {
           const index = prev.findIndex((c) => c.id === conversation.id);
           if (index !== -1) {
-            // @ts-expect-error todo
-            prev[index] = res.data;
+            prev[index] = res.data!;
             return [...prev];
           } else {
-            return [res.data, ...prev];
+            return [res.data!, ...prev];
           }
         });
       }

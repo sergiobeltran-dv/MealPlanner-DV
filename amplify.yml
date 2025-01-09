@@ -1,0 +1,13 @@
+version: 1
+applications:
+  - frontend:
+      phases:
+        build:
+          commands:
+            - npm ci
+            - npm run build
+      artifacts:
+        baseDirectory: .next
+        files:
+          - '**/*'
+    appRoot: . 
