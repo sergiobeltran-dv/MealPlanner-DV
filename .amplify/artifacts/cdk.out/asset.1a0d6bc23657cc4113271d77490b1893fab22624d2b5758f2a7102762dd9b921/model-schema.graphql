@@ -1,0 +1,212 @@
+type Temperature @aws_cognito_user_pools
+{
+  value: Int
+  unit: String
+}
+
+type ChatNamerReturnType @aws_cognito_user_pools
+{
+  name: String
+}
+
+type GenerateRecipeReturnType @aws_cognito_user_pools
+{
+  name: String
+  ingredients: [String]
+  instructions: String
+}
+
+type Mutation {
+  chat(conversationId: ID!, content: [ContentBlockInput], aiContext: AWSJSON, toolConfiguration: ToolConfigurationInput): ConversationMessage @conversation(aiModel: "anthropic.claude-3-haiku-20240307-v1:0", systemPrompt: "\n    You are a dedicated assistant specializing in meal planning and grocery list management. Your core tasks include generating meal plans with recipes and tailored grocery lists, recommending where to buy ingredients in specific cities with price estimates, and offering detailed step-by-step cooking instructions. For meal plans, provide clear ingredient quantities for specified servings, and when asked about ingredient sourcing, inquire about the user's city to suggest options and general costs. Stay focused on meals, redirecting unrelated queries politely, and deliver practical, helpful responses without apologies. Always ensure clarity and specificity, asking concise questions when additional input is needed.\n    ", tools: [{ name: "getWeather", description: "Provides the current weather for a given city." }]) @aws_cognito_user_pools
+}
+
+type Query {
+  getWeather(city: String): Temperature @function(name: "FnGetWeather") @auth(rules: [{allow: private}])
+  chatNamer(content: String): ChatNamerReturnType @generation(aiModel: "anthropic.claude-3-haiku-20240307-v1:0", systemPrompt: "You are a helpful assistant that writes descriptive names for conversations. Names should be 2-10 words long") @auth(rules: [{allow: private}])
+  generateRecipe(description: String): GenerateRecipeReturnType @generation(aiModel: "anthropic.claude-3-haiku-20240307-v1:0", systemPrompt: "You are a helpful assistant that generates recipes. dont get out of the meal context provide quantities with the ingredients") @auth(rules: [{allow: private}])
+}
+
+enum ConversationParticipantRole {
+  user
+  assistant
+}
+
+interface ConversationMessage {
+  id: ID!
+  conversationId: ID!
+  role: ConversationParticipantRole
+  content: [ContentBlock]
+  aiContext: AWSJSON
+  toolConfiguration: ToolConfiguration
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  owner: String
+}
+
+input DocumentBlockSourceInput {
+  bytes: String
+}
+
+input DocumentBlockInput {
+  format: String!
+  name: String!
+  source: DocumentBlockSourceInput!
+}
+
+input ImageBlockSourceInput {
+  bytes: String
+}
+
+input ImageBlockInput {
+  format: String!
+  source: ImageBlockSourceInput!
+}
+
+input ToolUseBlockInput {
+  toolUseId: String!
+  name: String!
+  input: AWSJSON!
+}
+
+input ToolResultContentBlockInput {
+  document: DocumentBlockInput
+  image: ImageBlockInput
+  json: AWSJSON
+  text: String
+}
+
+input ToolResultBlockInput {
+  content: [ToolResultContentBlockInput!]!
+  toolUseId: String!
+  status: String
+}
+
+type DocumentBlockSource {
+  bytes: String
+}
+
+
+type DocumentBlock {
+  format: String!
+  name: String!
+  source: DocumentBlockSource!
+}
+
+type ImageBlock {
+  format: String!
+  source: ImageBlockSource!
+}
+
+type ImageBlockSource {
+  bytes: String
+}
+
+type ToolUseBlock {
+  toolUseId: String!
+  name: String!
+  input: AWSJSON!
+}
+
+type ToolResultContentBlock {
+  document: DocumentBlock
+  image: ImageBlock
+  json: AWSJSON
+  text: String
+}
+
+type ToolResultBlock {
+  content: [ToolResultContentBlock!]!
+  toolUseId: String!
+  status: String
+}
+
+type ContentBlockText {
+  text: String
+}
+
+type ContentBlockImage {
+  image: ImageBlock
+}
+
+type ContentBlockDocument {
+  document: DocumentBlock
+}
+
+type ContentBlockToolUse {
+  toolUse: ToolUseBlock
+}
+
+type ContentBlockToolResult {
+  toolResult: ToolResultBlock
+}
+
+input ContentBlockInput {
+  text: String
+  document: DocumentBlockInput
+  image: ImageBlockInput
+  toolResult: ToolResultBlockInput
+  toolUse: ToolUseBlockInput
+}
+
+type ContentBlock {
+  text: String
+  document: DocumentBlock
+  image: ImageBlock
+  toolResult: ToolResultBlock
+  toolUse: ToolUseBlock
+}
+
+input ToolConfigurationInput {
+  tools: [ToolInput]
+}
+
+input ToolInput {
+  toolSpec: ToolSpecificationInput
+}
+
+input ToolSpecificationInput {
+  name: String!
+  description: String
+  inputSchema: ToolInputSchemaInput!
+}
+
+input ToolInputSchemaInput {
+  json: AWSJSON
+}
+
+type ToolConfiguration {
+  tools: [Tool]
+}
+
+type Tool {
+  toolSpec: ToolSpecification
+}
+
+type ToolSpecification {
+  name: String!
+  description: String
+  inputSchema: ToolInputSchema!
+}
+
+type ToolInputSchema {
+  json: AWSJSON
+}
+
+type ConversationMessageStreamPart @aws_cognito_user_pools {
+  id: ID!
+  owner: String
+  conversationId: ID!
+  associatedUserMessageId: ID!
+  contentBlockIndex: Int!
+  contentBlockText: String
+  contentBlockDeltaIndex: Int
+  contentBlockToolUse: ToolUseBlock
+  contentBlockDoneAtIndex: Int
+  stopReason: String
+  errors: [ConversationTurnError]
+}
+
+type ConversationTurnError @aws_cognito_user_pools {
+  message: String!
+  errorType: String!
+}

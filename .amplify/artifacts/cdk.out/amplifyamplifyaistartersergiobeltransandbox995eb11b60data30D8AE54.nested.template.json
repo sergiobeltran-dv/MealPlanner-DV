@@ -1,0 +1,2797 @@
+{
+ "Description": "{\"createdOn\":\"Windows\",\"createdBy\":\"AmplifySandbox\",\"createdWith\":\"1.17.0\",\"stackType\":\"api-AppSync\",\"metadata\":{\"dataSources\":\"\",\"authorizationModes\":\"amazon_cognito_identity_pools,amazon_cognito_user_pools,api_key,aws_iam\",\"customOperations\":\"queries,mutations\"}}",
+ "Resources": {
+  "amplifyDataGraphQLAPI42A6FA33": {
+   "Type": "AWS::AppSync::GraphQLApi",
+   "Properties": {
+    "AdditionalAuthenticationProviders": [
+     {
+      "AuthenticationType": "API_KEY"
+     },
+     {
+      "AuthenticationType": "AWS_IAM"
+     }
+    ],
+    "AuthenticationType": "AMAZON_COGNITO_USER_POOLS",
+    "Name": "amplifyData",
+    "Tags": [
+     {
+      "Key": "amplify:deployment-type",
+      "Value": "sandbox"
+     },
+     {
+      "Key": "amplify:friendly-name",
+      "Value": "amplifyData"
+     },
+     {
+      "Key": "created-by",
+      "Value": "amplify"
+     }
+    ],
+    "UserPoolConfig": {
+     "AwsRegion": {
+      "Ref": "AWS::Region"
+     },
+     "DefaultAction": "ALLOW",
+     "UserPoolId": {
+      "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthUserPool1A6DA250Ref"
+     }
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/GraphQLAPI/Resource"
+   }
+  },
+  "amplifyDataGraphQLAPITransformerSchemaFF50A789": {
+   "Type": "AWS::AppSync::GraphQLSchema",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPI42A6FA33",
+      "ApiId"
+     ]
+    },
+    "DefinitionS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/ef956a5192da317278c42442d02e8fa9702b15aa4a0a222ce1747a481406a2c3.graphql"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/GraphQLAPI/TransformerSchema"
+   }
+  },
+  "amplifyDataGraphQLAPIDefaultApiKey1C8ED374": {
+   "Type": "AWS::AppSync::ApiKey",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPI42A6FA33",
+      "ApiId"
+     ]
+    },
+    "Expires": 1735225255
+   },
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/GraphQLAPI/DefaultApiKey"
+   }
+  },
+  "amplifyDataGraphQLAPINONEDS684BF699": {
+   "Type": "AWS::AppSync::DataSource",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPI42A6FA33",
+      "ApiId"
+     ]
+    },
+    "Name": "NONE_DS",
+    "Type": "NONE"
+   },
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/GraphQLAPI/NONE_DS/Resource"
+   }
+  },
+  "amplifyDataAmplifyTableManagerNestedStackAmplifyTableManagerNestedStackResource86290833": {
+   "Type": "AWS::CloudFormation::Stack",
+   "Properties": {
+    "Parameters": {
+     "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataGraphQLAPIB5047CC8ApiId": {
+      "Fn::GetAtt": [
+       "amplifyDataGraphQLAPI42A6FA33",
+       "ApiId"
+      ]
+     }
+    },
+    "Tags": [
+     {
+      "Key": "amplify:deployment-type",
+      "Value": "sandbox"
+     },
+     {
+      "Key": "amplify:friendly-name",
+      "Value": "amplifyData"
+     },
+     {
+      "Key": "created-by",
+      "Value": "amplify"
+     }
+    ],
+    "TemplateURL": {
+     "Fn::Join": [
+      "",
+      [
+       "https://s3.",
+       {
+        "Ref": "AWS::Region"
+       },
+       ".",
+       {
+        "Ref": "AWS::URLSuffix"
+       },
+       "/",
+       {
+        "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+       },
+       "/9129a0c4222fecfd4cd8b78973aa9d7fd9310e51baa96733900101ff8efd94c7.json"
+      ]
+     ]
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/AmplifyTableManager.NestedStack/AmplifyTableManager.NestedStackResource",
+    "aws:asset:path": "amplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataAmplifyTableManager1A9A0E10.nested.template.json",
+    "aws:asset:property": "TemplateURL"
+   }
+  },
+  "amplifyDataConversationChatNestedStackConversationChatNestedStackResourceB49D22E6": {
+   "Type": "AWS::CloudFormation::Stack",
+   "Properties": {
+    "Parameters": {
+     "DynamoDBModelTableReadIOPS": {
+      "Ref": "DynamoDBModelTableReadIOPS"
+     },
+     "DynamoDBModelTableWriteIOPS": {
+      "Ref": "DynamoDBModelTableWriteIOPS"
+     },
+     "DynamoDBBillingMode": {
+      "Ref": "DynamoDBBillingMode"
+     },
+     "DynamoDBEnablePointInTimeRecovery": {
+      "Ref": "DynamoDBEnablePointInTimeRecovery"
+     },
+     "DynamoDBEnableServerSideEncryption": {
+      "Ref": "DynamoDBEnableServerSideEncryption"
+     },
+     "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataAmplifyTableManagerNestedStackAmplifyTableManagerNestedStackResourceC177891AOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataAmplifyTabB098F149": {
+      "Fn::GetAtt": [
+       "amplifyDataAmplifyTableManagerNestedStackAmplifyTableManagerNestedStackResource86290833",
+       "Outputs.amplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataAmplifyTableManagerTableManagerCustomProviderframeworkonEvent6FE039B0Arn"
+      ]
+     },
+     "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataGraphQLAPIB5047CC8ApiId": {
+      "Fn::GetAtt": [
+       "amplifyDataGraphQLAPI42A6FA33",
+       "ApiId"
+      ]
+     },
+     "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataGraphQLAPINONEDSCE422538Name": {
+      "Fn::GetAtt": [
+       "amplifyDataGraphQLAPINONEDS684BF699",
+       "Name"
+      ]
+     },
+     "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthauthenticatedUserRoleC12C907CRef": {
+      "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthauthenticatedUserRoleC12C907CRef"
+     },
+     "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthunauthenticatedUserRole91D7ABF2Ref": {
+      "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthunauthenticatedUserRole91D7ABF2Ref"
+     },
+     "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthIdentityPool3F9DC4DCRef": {
+      "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthIdentityPool3F9DC4DCRef"
+     }
+    },
+    "Tags": [
+     {
+      "Key": "amplify:deployment-type",
+      "Value": "sandbox"
+     },
+     {
+      "Key": "amplify:friendly-name",
+      "Value": "amplifyData"
+     },
+     {
+      "Key": "created-by",
+      "Value": "amplify"
+     }
+    ],
+    "TemplateURL": {
+     "Fn::Join": [
+      "",
+      [
+       "https://s3.",
+       {
+        "Ref": "AWS::Region"
+       },
+       ".",
+       {
+        "Ref": "AWS::URLSuffix"
+       },
+       "/",
+       {
+        "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+       },
+       "/fa1150f866c354bf633d58d54a3d22451df21abcb384d98d784daffdf1d68937.json"
+      ]
+     ]
+    }
+   },
+   "DependsOn": [
+    "amplifyDataGraphQLAPITransformerSchemaFF50A789"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/ConversationChat.NestedStack/ConversationChat.NestedStackResource",
+    "aws:asset:path": "amplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataConversationChat4A33CB6C.nested.template.json",
+    "aws:asset:property": "TemplateURL"
+   }
+  },
+  "amplifyDataConversationMessageChatNestedStackConversationMessageChatNestedStackResource0217AC4A": {
+   "Type": "AWS::CloudFormation::Stack",
+   "Properties": {
+    "Parameters": {
+     "DynamoDBModelTableReadIOPS": {
+      "Ref": "DynamoDBModelTableReadIOPS"
+     },
+     "DynamoDBModelTableWriteIOPS": {
+      "Ref": "DynamoDBModelTableWriteIOPS"
+     },
+     "DynamoDBBillingMode": {
+      "Ref": "DynamoDBBillingMode"
+     },
+     "DynamoDBEnablePointInTimeRecovery": {
+      "Ref": "DynamoDBEnablePointInTimeRecovery"
+     },
+     "DynamoDBEnableServerSideEncryption": {
+      "Ref": "DynamoDBEnableServerSideEncryption"
+     },
+     "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataAmplifyTableManagerNestedStackAmplifyTableManagerNestedStackResourceC177891AOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataAmplifyTabB098F149": {
+      "Fn::GetAtt": [
+       "amplifyDataAmplifyTableManagerNestedStackAmplifyTableManagerNestedStackResource86290833",
+       "Outputs.amplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataAmplifyTableManagerTableManagerCustomProviderframeworkonEvent6FE039B0Arn"
+      ]
+     },
+     "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataGraphQLAPIB5047CC8ApiId": {
+      "Fn::GetAtt": [
+       "amplifyDataGraphQLAPI42A6FA33",
+       "ApiId"
+      ]
+     },
+     "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataGraphQLAPINONEDSCE422538Name": {
+      "Fn::GetAtt": [
+       "amplifyDataGraphQLAPINONEDS684BF699",
+       "Name"
+      ]
+     },
+     "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthauthenticatedUserRoleC12C907CRef": {
+      "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthauthenticatedUserRoleC12C907CRef"
+     },
+     "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthunauthenticatedUserRole91D7ABF2Ref": {
+      "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthunauthenticatedUserRole91D7ABF2Ref"
+     },
+     "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthIdentityPool3F9DC4DCRef": {
+      "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthIdentityPool3F9DC4DCRef"
+     }
+    },
+    "Tags": [
+     {
+      "Key": "amplify:deployment-type",
+      "Value": "sandbox"
+     },
+     {
+      "Key": "amplify:friendly-name",
+      "Value": "amplifyData"
+     },
+     {
+      "Key": "created-by",
+      "Value": "amplify"
+     }
+    ],
+    "TemplateURL": {
+     "Fn::Join": [
+      "",
+      [
+       "https://s3.",
+       {
+        "Ref": "AWS::Region"
+       },
+       ".",
+       {
+        "Ref": "AWS::URLSuffix"
+       },
+       "/",
+       {
+        "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+       },
+       "/4827db5b551d4062c038495ed82be887aef8605abe99d342627dcd42e2684c85.json"
+      ]
+     ]
+    }
+   },
+   "DependsOn": [
+    "amplifyDataGraphQLAPITransformerSchemaFF50A789"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/ConversationMessageChat.NestedStack/ConversationMessageChat.NestedStackResource",
+    "aws:asset:path": "amplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataConversationMessageChatB9003167.nested.template.json",
+    "aws:asset:property": "TemplateURL"
+   }
+  },
+  "amplifyDataFunctionDirectiveStackNestedStackFunctionDirectiveStackNestedStackResource1246A302": {
+   "Type": "AWS::CloudFormation::Stack",
+   "Properties": {
+    "Parameters": {
+     "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60functionNestedStackfunctionNestedStackResource8DE3B463Outputsamplifyamplifyaistartersergiobeltransandbox995eb11b60functiongetWeatherlambda73ECBC9AArn": {
+      "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60functionNestedStackfunctionNestedStackResource8DE3B463Outputsamplifyamplifyaistartersergiobeltransandbox995eb11b60functiongetWeatherlambda73ECBC9AArn"
+     },
+     "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataGraphQLAPIB5047CC8ApiId": {
+      "Fn::GetAtt": [
+       "amplifyDataGraphQLAPI42A6FA33",
+       "ApiId"
+      ]
+     },
+     "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthauthenticatedUserRoleC12C907CRef": {
+      "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthauthenticatedUserRoleC12C907CRef"
+     },
+     "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthunauthenticatedUserRole91D7ABF2Ref": {
+      "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthunauthenticatedUserRole91D7ABF2Ref"
+     },
+     "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthIdentityPool3F9DC4DCRef": {
+      "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthIdentityPool3F9DC4DCRef"
+     },
+     "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataGraphQLAPINONEDSCE422538Name": {
+      "Fn::GetAtt": [
+       "amplifyDataGraphQLAPINONEDS684BF699",
+       "Name"
+      ]
+     }
+    },
+    "Tags": [
+     {
+      "Key": "amplify:deployment-type",
+      "Value": "sandbox"
+     },
+     {
+      "Key": "amplify:friendly-name",
+      "Value": "amplifyData"
+     },
+     {
+      "Key": "created-by",
+      "Value": "amplify"
+     }
+    ],
+    "TemplateURL": {
+     "Fn::Join": [
+      "",
+      [
+       "https://s3.",
+       {
+        "Ref": "AWS::Region"
+       },
+       ".",
+       {
+        "Ref": "AWS::URLSuffix"
+       },
+       "/",
+       {
+        "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+       },
+       "/edf13ed3623395bcd161c1367eb8146101e447c66294ef1411728d5a195097d0.json"
+      ]
+     ]
+    }
+   },
+   "DependsOn": [
+    "amplifyDataGraphQLAPITransformerSchemaFF50A789"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/FunctionDirectiveStack.NestedStack/FunctionDirectiveStack.NestedStackResource",
+    "aws:asset:path": "amplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataFunctionDirectiveStackBCB27400.nested.template.json",
+    "aws:asset:property": "TemplateURL"
+   }
+  },
+  "amplifyDataConnectionStackNestedStackConnectionStackNestedStackResourceAB0F312B": {
+   "Type": "AWS::CloudFormation::Stack",
+   "Properties": {
+    "Parameters": {
+     "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataGraphQLAPIB5047CC8ApiId": {
+      "Fn::GetAtt": [
+       "amplifyDataGraphQLAPI42A6FA33",
+       "ApiId"
+      ]
+     },
+     "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataGraphQLAPINONEDSCE422538Name": {
+      "Fn::GetAtt": [
+       "amplifyDataGraphQLAPINONEDS684BF699",
+       "Name"
+      ]
+     },
+     "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataConversationMessageChatNestedStackConversationMessageChatNestedStackResourceA4DAA284Outputsamplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataCo113B3C5B": {
+      "Fn::GetAtt": [
+       "amplifyDataConversationMessageChatNestedStackConversationMessageChatNestedStackResource0217AC4A",
+       "Outputs.amplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataConversationMessageChatConversationMessageChatDataSource6CD9B995Name"
+      ]
+     },
+     "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataConversationMessageChatNestedStackConversationMessageChatNestedStackResourceA4DAA284Outputsamplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataCo8CB8409C": {
+      "Fn::GetAtt": [
+       "amplifyDataConversationMessageChatNestedStackConversationMessageChatNestedStackResource0217AC4A",
+       "Outputs.amplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataConversationMessageChatConversationMessageChatTable82ACD9D1TableArn"
+      ]
+     },
+     "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthauthenticatedUserRoleC12C907CRef": {
+      "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthauthenticatedUserRoleC12C907CRef"
+     },
+     "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthunauthenticatedUserRole91D7ABF2Ref": {
+      "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthunauthenticatedUserRole91D7ABF2Ref"
+     },
+     "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthIdentityPool3F9DC4DCRef": {
+      "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthIdentityPool3F9DC4DCRef"
+     },
+     "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataConversationChatNestedStackConversationChatNestedStackResource8A245E79Outputsamplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataConversationChat98268828": {
+      "Fn::GetAtt": [
+       "amplifyDataConversationChatNestedStackConversationChatNestedStackResourceB49D22E6",
+       "Outputs.amplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataConversationChatConversationChatDataSourceED56BCB2Name"
+      ]
+     },
+     "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataConversationChatNestedStackConversationChatNestedStackResource8A245E79Outputsamplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataConversationChatCA48A9A0": {
+      "Fn::GetAtt": [
+       "amplifyDataConversationChatNestedStackConversationChatNestedStackResourceB49D22E6",
+       "Outputs.amplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataConversationChatConversationChatTable26787347TableArn"
+      ]
+     }
+    },
+    "Tags": [
+     {
+      "Key": "amplify:deployment-type",
+      "Value": "sandbox"
+     },
+     {
+      "Key": "amplify:friendly-name",
+      "Value": "amplifyData"
+     },
+     {
+      "Key": "created-by",
+      "Value": "amplify"
+     }
+    ],
+    "TemplateURL": {
+     "Fn::Join": [
+      "",
+      [
+       "https://s3.",
+       {
+        "Ref": "AWS::Region"
+       },
+       ".",
+       {
+        "Ref": "AWS::URLSuffix"
+       },
+       "/",
+       {
+        "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+       },
+       "/8749164d183bc48042d8478d7e6eb0304795227f11029956e2cc65aed253826f.json"
+      ]
+     ]
+    }
+   },
+   "DependsOn": [
+    "amplifyDataConversationChatNestedStackConversationChatNestedStackResourceB49D22E6",
+    "amplifyDataConversationMessageChatNestedStackConversationMessageChatNestedStackResource0217AC4A",
+    "amplifyDataGraphQLAPITransformerSchemaFF50A789"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/ConnectionStack.NestedStack/ConnectionStack.NestedStackResource",
+    "aws:asset:path": "amplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataConnectionStack0FFE1190.nested.template.json",
+    "aws:asset:property": "TemplateURL"
+   }
+  },
+  "amplifyDataChatConversationDirectiveLambdaStackNestedStackChatConversationDirectiveLambdaStackNestedStackResource81346F08": {
+   "Type": "AWS::CloudFormation::Stack",
+   "Properties": {
+    "Parameters": {
+     "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataGraphQLAPIB5047CC8ApiId": {
+      "Fn::GetAtt": [
+       "amplifyDataGraphQLAPI42A6FA33",
+       "ApiId"
+      ]
+     }
+    },
+    "Tags": [
+     {
+      "Key": "amplify:deployment-type",
+      "Value": "sandbox"
+     },
+     {
+      "Key": "amplify:friendly-name",
+      "Value": "amplifyData"
+     },
+     {
+      "Key": "created-by",
+      "Value": "amplify"
+     }
+    ],
+    "TemplateURL": {
+     "Fn::Join": [
+      "",
+      [
+       "https://s3.",
+       {
+        "Ref": "AWS::Region"
+       },
+       ".",
+       {
+        "Ref": "AWS::URLSuffix"
+       },
+       "/",
+       {
+        "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+       },
+       "/437601660fe9432c09a6e209dc619afc8be8dae448f38cc9435f46111fa6f464.json"
+      ]
+     ]
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/ChatConversationDirectiveLambdaStack.NestedStack/ChatConversationDirectiveLambdaStack.NestedStackResource",
+    "aws:asset:path": "amplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataChatConversationDirectiveLambdaStack38A56DA1.nested.template.json",
+    "aws:asset:property": "TemplateURL"
+   }
+  },
+  "amplifyDataGenerationBedrockDataSourceChatNamerStackNestedStackGenerationBedrockDataSourceChatNamerStackNestedStackResourceE547123D": {
+   "Type": "AWS::CloudFormation::Stack",
+   "Properties": {
+    "Parameters": {
+     "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataGraphQLAPIB5047CC8ApiId": {
+      "Fn::GetAtt": [
+       "amplifyDataGraphQLAPI42A6FA33",
+       "ApiId"
+      ]
+     }
+    },
+    "Tags": [
+     {
+      "Key": "amplify:deployment-type",
+      "Value": "sandbox"
+     },
+     {
+      "Key": "amplify:friendly-name",
+      "Value": "amplifyData"
+     },
+     {
+      "Key": "created-by",
+      "Value": "amplify"
+     }
+    ],
+    "TemplateURL": {
+     "Fn::Join": [
+      "",
+      [
+       "https://s3.",
+       {
+        "Ref": "AWS::Region"
+       },
+       ".",
+       {
+        "Ref": "AWS::URLSuffix"
+       },
+       "/",
+       {
+        "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+       },
+       "/3d6b1dbf30a3ec901b400d1892468b0e32f0bbde7d7fbc76f3578c68693888a2.json"
+      ]
+     ]
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/GenerationBedrockDataSourceChatNamerStack.NestedStack/GenerationBedrockDataSourceChatNamerStack.NestedStackResource",
+    "aws:asset:path": "amplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataGenerationBedrockDataSourceChatNamerStack6C958CCD.nested.template.json",
+    "aws:asset:property": "TemplateURL"
+   }
+  },
+  "amplifyDataGenerationBedrockDataSourceGenerateRecipeStackNestedStackGenerationBedrockDataSourceGenerateRecipeStackNestedStackResource7F0048EF": {
+   "Type": "AWS::CloudFormation::Stack",
+   "Properties": {
+    "Parameters": {
+     "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataGraphQLAPIB5047CC8ApiId": {
+      "Fn::GetAtt": [
+       "amplifyDataGraphQLAPI42A6FA33",
+       "ApiId"
+      ]
+     }
+    },
+    "Tags": [
+     {
+      "Key": "amplify:deployment-type",
+      "Value": "sandbox"
+     },
+     {
+      "Key": "amplify:friendly-name",
+      "Value": "amplifyData"
+     },
+     {
+      "Key": "created-by",
+      "Value": "amplify"
+     }
+    ],
+    "TemplateURL": {
+     "Fn::Join": [
+      "",
+      [
+       "https://s3.",
+       {
+        "Ref": "AWS::Region"
+       },
+       ".",
+       {
+        "Ref": "AWS::URLSuffix"
+       },
+       "/",
+       {
+        "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+       },
+       "/ba822630a6931fa069e81b25aebafe8cdada9bd2f922fbd6db92fb3db3fafef0.json"
+      ]
+     ]
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/GenerationBedrockDataSourceGenerateRecipeStack.NestedStack/GenerationBedrockDataSourceGenerateRecipeStack.NestedStackResource",
+    "aws:asset:path": "amplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataGenerationBedrockDataSourceGenerateRecipeStack3BDCAF1A.nested.template.json",
+    "aws:asset:property": "TemplateURL"
+   }
+  },
+  "amplifyDataMutationchatinit0FunctionMutationchatinit0FunctionAppSyncFunctionDE655FD0": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPI42A6FA33",
+      "ApiId"
+     ]
+    },
+    "Code": {
+     "Fn::Join": [
+      "",
+      [
+       "export function request(ctx) {\n  ctx.stash.graphqlApiEndpoint = '",
+       {
+        "Fn::GetAtt": [
+         "amplifyDataGraphQLAPI42A6FA33",
+         "GraphQLUrl"
+        ]
+       },
+       "';\n  ctx.stash.defaultValues = ctx.stash.defaultValues ?? {};\n  ctx.stash.defaultValues.id = util.autoId();\n  const createdAt = util.time.nowISO8601();\n  ctx.stash.defaultValues.createdAt = createdAt;\n  ctx.stash.defaultValues.updatedAt = createdAt;\n  return {\n    version: '2018-05-09',\n    payload: {},\n  };\n}\n\nexport function response(ctx) {\n  return {};\n}\n"
+      ]
+     ]
+    },
+    "DataSourceName": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPINONEDS684BF699",
+      "Name"
+     ]
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "Mutationchatinit0Function",
+    "Runtime": {
+     "Name": "APPSYNC_JS",
+     "RuntimeVersion": "1.0.0"
+    }
+   },
+   "DependsOn": [
+    "amplifyDataGraphQLAPITransformerSchemaFF50A789"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/Mutationchatinit0Function/Mutationchatinit0Function.AppSyncFunction"
+   }
+  },
+  "amplifyDataMutationchatauth0FunctionMutationchatauth0FunctionAppSyncFunctionED5AEB0B": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPI42A6FA33",
+      "ApiId"
+     ]
+    },
+    "CodeS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/0b6870316a7cc3a435794648a50804b351796bbef89481700dd163805d5cef24.js"
+    },
+    "DataSourceName": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPINONEDS684BF699",
+      "Name"
+     ]
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "Mutationchatauth0Function",
+    "Runtime": {
+     "Name": "APPSYNC_JS",
+     "RuntimeVersion": "1.0.0"
+    }
+   },
+   "DependsOn": [
+    "amplifyDataGraphQLAPITransformerSchemaFF50A789"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/Mutationchatauth0Function/Mutationchatauth0Function.AppSyncFunction"
+   }
+  },
+  "amplifyDataMutationchatverifySessionOwner0FunctionMutationchatverifySessionOwner0FunctionAppSyncFunction652E4E97": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPI42A6FA33",
+      "ApiId"
+     ]
+    },
+    "CodeS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/07a0bfa21adec45dc32b68672b9a13a10064b7fca1bdbd5ccc75baf717304e98.js"
+    },
+    "DataSourceName": {
+     "Fn::GetAtt": [
+      "amplifyDataConversationChatNestedStackConversationChatNestedStackResourceB49D22E6",
+      "Outputs.amplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataConversationChatConversationChatDataSourceED56BCB2Name"
+     ]
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "MutationchatverifySessionOwner0Function",
+    "Runtime": {
+     "Name": "APPSYNC_JS",
+     "RuntimeVersion": "1.0.0"
+    }
+   },
+   "DependsOn": [
+    "amplifyDataConversationChatNestedStackConversationChatNestedStackResourceB49D22E6",
+    "amplifyDataGraphQLAPITransformerSchemaFF50A789"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/MutationchatverifySessionOwner0Function/MutationchatverifySessionOwner0Function.AppSyncFunction"
+   }
+  },
+  "amplifyDataMutationchatwriteMessageToTable0FunctionMutationchatwriteMessageToTable0FunctionAppSyncFunction20870406": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPI42A6FA33",
+      "ApiId"
+     ]
+    },
+    "CodeS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/ec5579158b97acda84acaf2085670b17e6e5336ffae4fd258459f006a0925f54.js"
+    },
+    "DataSourceName": {
+     "Fn::GetAtt": [
+      "amplifyDataConversationMessageChatNestedStackConversationMessageChatNestedStackResource0217AC4A",
+      "Outputs.amplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataConversationMessageChatConversationMessageChatDataSource6CD9B995Name"
+     ]
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "MutationchatwriteMessageToTable0Function",
+    "Runtime": {
+     "Name": "APPSYNC_JS",
+     "RuntimeVersion": "1.0.0"
+    }
+   },
+   "DependsOn": [
+    "amplifyDataConversationMessageChatNestedStackConversationMessageChatNestedStackResource0217AC4A",
+    "amplifyDataGraphQLAPITransformerSchemaFF50A789"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/MutationchatwriteMessageToTable0Function/MutationchatwriteMessageToTable0Function.AppSyncFunction"
+   }
+  },
+  "amplifyDataMutationChatDataResolverFnMutationChatDataResolverFnAppSyncFunctionE9077046": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPI42A6FA33",
+      "ApiId"
+     ]
+    },
+    "CodeS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/b22a95e59b83bd35491176c2a07c013827f52d317773d7bca8b6915e04494075.js"
+    },
+    "DataSourceName": {
+     "Fn::GetAtt": [
+      "amplifyDataChatConversationDirectiveLambdaStackNestedStackChatConversationDirectiveLambdaStackNestedStackResource81346F08",
+      "Outputs.amplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataChatConversationDirectiveLambdaStackChatDefaultConversationHandlerLambdaDataSourceB763E4A0Name"
+     ]
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "MutationChatDataResolverFn",
+    "Runtime": {
+     "Name": "APPSYNC_JS",
+     "RuntimeVersion": "1.0.0"
+    }
+   },
+   "DependsOn": [
+    "amplifyDataChatConversationDirectiveLambdaStackNestedStackChatConversationDirectiveLambdaStackNestedStackResource81346F08",
+    "amplifyDataGraphQLAPITransformerSchemaFF50A789"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/MutationChatDataResolverFn/MutationChatDataResolverFn.AppSyncFunction"
+   }
+  },
+  "MutationchatResolver": {
+   "Type": "AWS::AppSync::Resolver",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPI42A6FA33",
+      "ApiId"
+     ]
+    },
+    "Code": {
+     "Fn::Join": [
+      "",
+      [
+       "export const request = (ctx) => {\n  ctx.stash.typeName = \"Mutation\";\n  ctx.stash.fieldName = \"chat\";\n  ctx.stash.conditions = [];\n  ctx.stash.metadata = {};\n  ctx.stash.metadata.dataSourceType = \"AWS_LAMBDA\";\n  ctx.stash.metadata.apiId = \"",
+       {
+        "Fn::GetAtt": [
+         "amplifyDataGraphQLAPI42A6FA33",
+         "ApiId"
+        ]
+       },
+       "\";\n  ctx.stash.connectionAttributes = {};\n  ctx.stash.lambdaFunctionArn = \"",
+       {
+        "Fn::GetAtt": [
+         "amplifyDataChatConversationDirectiveLambdaStackNestedStackChatConversationDirectiveLambdaStackNestedStackResource81346F08",
+         "Outputs.amplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataChatConversationDirectiveLambdaStackChatDefaultConversationHandlerconversationHandlerFunction953B8CC2Arn"
+        ]
+       },
+       "\";\n  ctx.stash.authRole = \"arn:aws:sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthauthenticatedUserRoleC12C907CRef"
+       },
+       "/CognitoIdentityCredentials\";\n  ctx.stash.unauthRole = \"arn:aws:sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthunauthenticatedUserRole91D7ABF2Ref"
+       },
+       "/CognitoIdentityCredentials\";\n  ctx.stash.identityPoolId = \"",
+       {
+        "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthIdentityPool3F9DC4DCRef"
+       },
+       "\";\n  ctx.stash.adminRoles = [];\n  return {};\n}\n\nexport const response = (ctx) => {\n  return ctx.prev.result;\n};"
+      ]
+     ]
+    },
+    "FieldName": "chat",
+    "Kind": "PIPELINE",
+    "PipelineConfig": {
+     "Functions": [
+      {
+       "Fn::GetAtt": [
+        "amplifyDataMutationchatinit0FunctionMutationchatinit0FunctionAppSyncFunctionDE655FD0",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "amplifyDataMutationchatauth0FunctionMutationchatauth0FunctionAppSyncFunctionED5AEB0B",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "amplifyDataMutationchatverifySessionOwner0FunctionMutationchatverifySessionOwner0FunctionAppSyncFunction652E4E97",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "amplifyDataMutationchatwriteMessageToTable0FunctionMutationchatwriteMessageToTable0FunctionAppSyncFunction20870406",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "amplifyDataMutationChatDataResolverFnMutationChatDataResolverFnAppSyncFunctionE9077046",
+        "FunctionId"
+       ]
+      }
+     ]
+    },
+    "Runtime": {
+     "Name": "APPSYNC_JS",
+     "RuntimeVersion": "1.0.0"
+    },
+    "TypeName": "Mutation"
+   },
+   "DependsOn": [
+    "amplifyDataGraphQLAPITransformerSchemaFF50A789"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/mutationChatResolver"
+   }
+  },
+  "amplifyDataMutationcreateAssistantResponseChatinit0FunctionMutationcreateAssistantResponseChatinit0FunctionAppSyncFunctionBBBC9DD5": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPI42A6FA33",
+      "ApiId"
+     ]
+    },
+    "CodeS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/9ff8d14bf2a82efc582555af857c92685c88f6f1bfef7dd58ca293d7143587a2.js"
+    },
+    "DataSourceName": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPINONEDS684BF699",
+      "Name"
+     ]
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "MutationcreateAssistantResponseChatinit0Function",
+    "Runtime": {
+     "Name": "APPSYNC_JS",
+     "RuntimeVersion": "1.0.0"
+    }
+   },
+   "DependsOn": [
+    "amplifyDataGraphQLAPITransformerSchemaFF50A789"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/MutationcreateAssistantResponseChatinit0Function/MutationcreateAssistantResponseChatinit0Function.AppSyncFunction"
+   }
+  },
+  "amplifyDataMutationcreateAssistantResponseChatauth0FunctionMutationcreateAssistantResponseChatauth0FunctionAppSyncFunction8DB0CDB5": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPI42A6FA33",
+      "ApiId"
+     ]
+    },
+    "CodeS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/0b6870316a7cc3a435794648a50804b351796bbef89481700dd163805d5cef24.js"
+    },
+    "DataSourceName": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPINONEDS684BF699",
+      "Name"
+     ]
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "MutationcreateAssistantResponseChatauth0Function",
+    "Runtime": {
+     "Name": "APPSYNC_JS",
+     "RuntimeVersion": "1.0.0"
+    }
+   },
+   "DependsOn": [
+    "amplifyDataGraphQLAPITransformerSchemaFF50A789"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/MutationcreateAssistantResponseChatauth0Function/MutationcreateAssistantResponseChatauth0Function.AppSyncFunction"
+   }
+  },
+  "amplifyDataMutationcreateAssistantResponseChatverifySessionOwner0FunctionMutationcreateAssistantResponseChatverifySessionOwner0FunctionAppSyncFunction82BCCAFB": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPI42A6FA33",
+      "ApiId"
+     ]
+    },
+    "CodeS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/c0cf11bfb0f9262899958190d92023844da44ca65a9139940acee09d9d1adab4.js"
+    },
+    "DataSourceName": {
+     "Fn::GetAtt": [
+      "amplifyDataConversationChatNestedStackConversationChatNestedStackResourceB49D22E6",
+      "Outputs.amplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataConversationChatConversationChatDataSourceED56BCB2Name"
+     ]
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "MutationcreateAssistantResponseChatverifySessionOwner0Function",
+    "Runtime": {
+     "Name": "APPSYNC_JS",
+     "RuntimeVersion": "1.0.0"
+    }
+   },
+   "DependsOn": [
+    "amplifyDataConversationChatNestedStackConversationChatNestedStackResourceB49D22E6",
+    "amplifyDataGraphQLAPITransformerSchemaFF50A789"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/MutationcreateAssistantResponseChatverifySessionOwner0Function/MutationcreateAssistantResponseChatverifySessionOwner0Function.AppSyncFunction"
+   }
+  },
+  "amplifyDataMutationCreateAssistantResponseChatDataResolverFnMutationCreateAssistantResponseChatDataResolverFnAppSyncFunctionCDF23D22": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPI42A6FA33",
+      "ApiId"
+     ]
+    },
+    "CodeS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/0ab772647a446d1192c901983d2fbe425010b5f0fccdfa820788c9d30c598d57.js"
+    },
+    "DataSourceName": {
+     "Fn::GetAtt": [
+      "amplifyDataConversationMessageChatNestedStackConversationMessageChatNestedStackResource0217AC4A",
+      "Outputs.amplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataConversationMessageChatConversationMessageChatDataSource6CD9B995Name"
+     ]
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "MutationCreateAssistantResponseChatDataResolverFn",
+    "Runtime": {
+     "Name": "APPSYNC_JS",
+     "RuntimeVersion": "1.0.0"
+    }
+   },
+   "DependsOn": [
+    "amplifyDataConversationMessageChatNestedStackConversationMessageChatNestedStackResource0217AC4A",
+    "amplifyDataGraphQLAPITransformerSchemaFF50A789"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/MutationCreateAssistantResponseChatDataResolverFn/MutationCreateAssistantResponseChatDataResolverFn.AppSyncFunction"
+   }
+  },
+  "MutationcreateAssistantResponseChatResolver": {
+   "Type": "AWS::AppSync::Resolver",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPI42A6FA33",
+      "ApiId"
+     ]
+    },
+    "Code": {
+     "Fn::Join": [
+      "",
+      [
+       "export const request = (ctx) => {\n  ctx.stash.typeName = \"Mutation\";\n  ctx.stash.fieldName = \"createAssistantResponseChat\";\n  ctx.stash.conditions = [];\n  ctx.stash.metadata = {};\n  ctx.stash.metadata.dataSourceType = \"AMAZON_DYNAMODB\";\n  ctx.stash.metadata.apiId = \"",
+       {
+        "Fn::GetAtt": [
+         "amplifyDataGraphQLAPI42A6FA33",
+         "ApiId"
+        ]
+       },
+       "\";\n  ctx.stash.connectionAttributes = {};\n  ctx.stash.tableName = \"",
+       {
+        "Fn::Select": [
+         1,
+         {
+          "Fn::Split": [
+           "/",
+           {
+            "Fn::Select": [
+             5,
+             {
+              "Fn::Split": [
+               ":",
+               {
+                "Fn::GetAtt": [
+                 "amplifyDataConversationMessageChatNestedStackConversationMessageChatNestedStackResource0217AC4A",
+                 "Outputs.amplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataConversationMessageChatConversationMessageChatTable82ACD9D1TableArn"
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       },
+       "\";\n  ctx.stash.authRole = \"arn:aws:sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthauthenticatedUserRoleC12C907CRef"
+       },
+       "/CognitoIdentityCredentials\";\n  ctx.stash.unauthRole = \"arn:aws:sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthunauthenticatedUserRole91D7ABF2Ref"
+       },
+       "/CognitoIdentityCredentials\";\n  ctx.stash.identityPoolId = \"",
+       {
+        "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthIdentityPool3F9DC4DCRef"
+       },
+       "\";\n  ctx.stash.adminRoles = [];\n  return {};\n}\n\nexport const response = (ctx) => {\n  return ctx.prev.result;\n};"
+      ]
+     ]
+    },
+    "FieldName": "createAssistantResponseChat",
+    "Kind": "PIPELINE",
+    "PipelineConfig": {
+     "Functions": [
+      {
+       "Fn::GetAtt": [
+        "amplifyDataMutationcreateAssistantResponseChatinit0FunctionMutationcreateAssistantResponseChatinit0FunctionAppSyncFunctionBBBC9DD5",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "amplifyDataMutationcreateAssistantResponseChatauth0FunctionMutationcreateAssistantResponseChatauth0FunctionAppSyncFunction8DB0CDB5",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "amplifyDataMutationcreateAssistantResponseChatverifySessionOwner0FunctionMutationcreateAssistantResponseChatverifySessionOwner0FunctionAppSyncFunction82BCCAFB",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "amplifyDataMutationCreateAssistantResponseChatDataResolverFnMutationCreateAssistantResponseChatDataResolverFnAppSyncFunctionCDF23D22",
+        "FunctionId"
+       ]
+      }
+     ]
+    },
+    "Runtime": {
+     "Name": "APPSYNC_JS",
+     "RuntimeVersion": "1.0.0"
+    },
+    "TypeName": "Mutation"
+   },
+   "DependsOn": [
+    "amplifyDataGraphQLAPITransformerSchemaFF50A789"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/mutationCreateAssistantResponseChatResolver"
+   }
+  },
+  "amplifyDataMutationcreateAssistantResponseStreamChatinit0FunctionMutationcreateAssistantResponseStreamChatinit0FunctionAppSyncFunction66340FF0": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPI42A6FA33",
+      "ApiId"
+     ]
+    },
+    "Code": {
+     "Fn::Join": [
+      "",
+      [
+       "export function request(ctx) {\n  ctx.stash.graphqlApiEndpoint = '",
+       {
+        "Fn::GetAtt": [
+         "amplifyDataGraphQLAPI42A6FA33",
+         "GraphQLUrl"
+        ]
+       },
+       "';\n  ctx.stash.defaultValues = ctx.stash.defaultValues ?? {};\n  ctx.stash.defaultValues.id = util.autoId();\n  const createdAt = util.time.nowISO8601();\n  ctx.stash.defaultValues.createdAt = createdAt;\n  ctx.stash.defaultValues.updatedAt = createdAt;\n  return {\n    version: '2018-05-09',\n    payload: {},\n  };\n}\n\nexport function response(ctx) {\n  return {};\n}\n"
+      ]
+     ]
+    },
+    "DataSourceName": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPINONEDS684BF699",
+      "Name"
+     ]
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "MutationcreateAssistantResponseStreamChatinit0Function",
+    "Runtime": {
+     "Name": "APPSYNC_JS",
+     "RuntimeVersion": "1.0.0"
+    }
+   },
+   "DependsOn": [
+    "amplifyDataGraphQLAPITransformerSchemaFF50A789"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/MutationcreateAssistantResponseStreamChatinit0Function/MutationcreateAssistantResponseStreamChatinit0Function.AppSyncFunction"
+   }
+  },
+  "amplifyDataMutationcreateAssistantResponseStreamChatauth0FunctionMutationcreateAssistantResponseStreamChatauth0FunctionAppSyncFunction129283D1": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPI42A6FA33",
+      "ApiId"
+     ]
+    },
+    "CodeS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/0b6870316a7cc3a435794648a50804b351796bbef89481700dd163805d5cef24.js"
+    },
+    "DataSourceName": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPINONEDS684BF699",
+      "Name"
+     ]
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "MutationcreateAssistantResponseStreamChatauth0Function",
+    "Runtime": {
+     "Name": "APPSYNC_JS",
+     "RuntimeVersion": "1.0.0"
+    }
+   },
+   "DependsOn": [
+    "amplifyDataGraphQLAPITransformerSchemaFF50A789"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/MutationcreateAssistantResponseStreamChatauth0Function/MutationcreateAssistantResponseStreamChatauth0Function.AppSyncFunction"
+   }
+  },
+  "amplifyDataMutationcreateAssistantResponseStreamChatverifySessionOwner0FunctionMutationcreateAssistantResponseStreamChatverifySessionOwner0FunctionAppSyncFunctionD4F88C6D": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPI42A6FA33",
+      "ApiId"
+     ]
+    },
+    "CodeS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/c0cf11bfb0f9262899958190d92023844da44ca65a9139940acee09d9d1adab4.js"
+    },
+    "DataSourceName": {
+     "Fn::GetAtt": [
+      "amplifyDataConversationChatNestedStackConversationChatNestedStackResourceB49D22E6",
+      "Outputs.amplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataConversationChatConversationChatDataSourceED56BCB2Name"
+     ]
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "MutationcreateAssistantResponseStreamChatverifySessionOwner0Function",
+    "Runtime": {
+     "Name": "APPSYNC_JS",
+     "RuntimeVersion": "1.0.0"
+    }
+   },
+   "DependsOn": [
+    "amplifyDataConversationChatNestedStackConversationChatNestedStackResourceB49D22E6",
+    "amplifyDataGraphQLAPITransformerSchemaFF50A789"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/MutationcreateAssistantResponseStreamChatverifySessionOwner0Function/MutationcreateAssistantResponseStreamChatverifySessionOwner0Function.AppSyncFunction"
+   }
+  },
+  "amplifyDataMutationCreateAssistantResponseStreamChatDataResolverFnMutationCreateAssistantResponseStreamChatDataResolverFnAppSyncFunctionF328661E": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPI42A6FA33",
+      "ApiId"
+     ]
+    },
+    "CodeS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/e7a2f8d88028206cea69a1c0b6bf7dbb0e5f28b8e421812d62219f96fe3d6695.js"
+    },
+    "DataSourceName": {
+     "Fn::GetAtt": [
+      "amplifyDataConversationMessageChatNestedStackConversationMessageChatNestedStackResource0217AC4A",
+      "Outputs.amplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataConversationMessageChatConversationMessageChatDataSource6CD9B995Name"
+     ]
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "MutationCreateAssistantResponseStreamChatDataResolverFn",
+    "Runtime": {
+     "Name": "APPSYNC_JS",
+     "RuntimeVersion": "1.0.0"
+    }
+   },
+   "DependsOn": [
+    "amplifyDataConversationMessageChatNestedStackConversationMessageChatNestedStackResource0217AC4A",
+    "amplifyDataGraphQLAPITransformerSchemaFF50A789"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/MutationCreateAssistantResponseStreamChatDataResolverFn/MutationCreateAssistantResponseStreamChatDataResolverFn.AppSyncFunction"
+   }
+  },
+  "MutationcreateAssistantResponseStreamChatResolver": {
+   "Type": "AWS::AppSync::Resolver",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPI42A6FA33",
+      "ApiId"
+     ]
+    },
+    "Code": {
+     "Fn::Join": [
+      "",
+      [
+       "export const request = (ctx) => {\n  ctx.stash.typeName = \"Mutation\";\n  ctx.stash.fieldName = \"createAssistantResponseStreamChat\";\n  ctx.stash.conditions = [];\n  ctx.stash.metadata = {};\n  ctx.stash.metadata.dataSourceType = \"AMAZON_DYNAMODB\";\n  ctx.stash.metadata.apiId = \"",
+       {
+        "Fn::GetAtt": [
+         "amplifyDataGraphQLAPI42A6FA33",
+         "ApiId"
+        ]
+       },
+       "\";\n  ctx.stash.connectionAttributes = {};\n  ctx.stash.tableName = \"",
+       {
+        "Fn::Select": [
+         1,
+         {
+          "Fn::Split": [
+           "/",
+           {
+            "Fn::Select": [
+             5,
+             {
+              "Fn::Split": [
+               ":",
+               {
+                "Fn::GetAtt": [
+                 "amplifyDataConversationMessageChatNestedStackConversationMessageChatNestedStackResource0217AC4A",
+                 "Outputs.amplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataConversationMessageChatConversationMessageChatTable82ACD9D1TableArn"
+                ]
+               }
+              ]
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       },
+       "\";\n  ctx.stash.authRole = \"arn:aws:sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthauthenticatedUserRoleC12C907CRef"
+       },
+       "/CognitoIdentityCredentials\";\n  ctx.stash.unauthRole = \"arn:aws:sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthunauthenticatedUserRole91D7ABF2Ref"
+       },
+       "/CognitoIdentityCredentials\";\n  ctx.stash.identityPoolId = \"",
+       {
+        "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthIdentityPool3F9DC4DCRef"
+       },
+       "\";\n  ctx.stash.adminRoles = [];\n  return {};\n}\n\nexport const response = (ctx) => {\n  return ctx.prev.result;\n};"
+      ]
+     ]
+    },
+    "FieldName": "createAssistantResponseStreamChat",
+    "Kind": "PIPELINE",
+    "PipelineConfig": {
+     "Functions": [
+      {
+       "Fn::GetAtt": [
+        "amplifyDataMutationcreateAssistantResponseStreamChatinit0FunctionMutationcreateAssistantResponseStreamChatinit0FunctionAppSyncFunction66340FF0",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "amplifyDataMutationcreateAssistantResponseStreamChatauth0FunctionMutationcreateAssistantResponseStreamChatauth0FunctionAppSyncFunction129283D1",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "amplifyDataMutationcreateAssistantResponseStreamChatverifySessionOwner0FunctionMutationcreateAssistantResponseStreamChatverifySessionOwner0FunctionAppSyncFunctionD4F88C6D",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "amplifyDataMutationCreateAssistantResponseStreamChatDataResolverFnMutationCreateAssistantResponseStreamChatDataResolverFnAppSyncFunctionF328661E",
+        "FunctionId"
+       ]
+      }
+     ]
+    },
+    "Runtime": {
+     "Name": "APPSYNC_JS",
+     "RuntimeVersion": "1.0.0"
+    },
+    "TypeName": "Mutation"
+   },
+   "DependsOn": [
+    "amplifyDataGraphQLAPITransformerSchemaFF50A789"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/mutationCreateAssistantResponseStreamChatResolver"
+   }
+  },
+  "amplifyDataSubscriptionOnCreateAssistantResponseChatDataResolverFnSubscriptionOnCreateAssistantResponseChatDataResolverFnAppSyncFunction7E8D8797": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPI42A6FA33",
+      "ApiId"
+     ]
+    },
+    "CodeS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/cf7f1ccbd939839e685a3192e6dd527f83552c056d667ab365b45c19f68faa82.js"
+    },
+    "DataSourceName": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPINONEDS684BF699",
+      "Name"
+     ]
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "SubscriptionOnCreateAssistantResponseChatDataResolverFn",
+    "Runtime": {
+     "Name": "APPSYNC_JS",
+     "RuntimeVersion": "1.0.0"
+    }
+   },
+   "DependsOn": [
+    "amplifyDataGraphQLAPITransformerSchemaFF50A789"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/SubscriptionOnCreateAssistantResponseChatDataResolverFn/SubscriptionOnCreateAssistantResponseChatDataResolverFn.AppSyncFunction"
+   }
+  },
+  "SubscriptiononCreateAssistantResponseChatResolver": {
+   "Type": "AWS::AppSync::Resolver",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPI42A6FA33",
+      "ApiId"
+     ]
+    },
+    "Code": {
+     "Fn::Join": [
+      "",
+      [
+       "export const request = (ctx) => {\n  ctx.stash.typeName = \"Subscription\";\n  ctx.stash.fieldName = \"onCreateAssistantResponseChat\";\n  ctx.stash.conditions = [];\n  ctx.stash.metadata = {};\n  ctx.stash.metadata.dataSourceType = \"NONE\";\n  ctx.stash.metadata.apiId = \"",
+       {
+        "Fn::GetAtt": [
+         "amplifyDataGraphQLAPI42A6FA33",
+         "ApiId"
+        ]
+       },
+       "\";\n  ctx.stash.connectionAttributes = {};\n  \n  ctx.stash.authRole = \"arn:aws:sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthauthenticatedUserRoleC12C907CRef"
+       },
+       "/CognitoIdentityCredentials\";\n  ctx.stash.unauthRole = \"arn:aws:sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthunauthenticatedUserRole91D7ABF2Ref"
+       },
+       "/CognitoIdentityCredentials\";\n  ctx.stash.identityPoolId = \"",
+       {
+        "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthIdentityPool3F9DC4DCRef"
+       },
+       "\";\n  ctx.stash.adminRoles = [];\n  return {};\n}\n\nexport const response = (ctx) => {\n  return ctx.prev.result;\n};"
+      ]
+     ]
+    },
+    "FieldName": "onCreateAssistantResponseChat",
+    "Kind": "PIPELINE",
+    "PipelineConfig": {
+     "Functions": [
+      {
+       "Fn::GetAtt": [
+        "amplifyDataSubscriptionOnCreateAssistantResponseChatDataResolverFnSubscriptionOnCreateAssistantResponseChatDataResolverFnAppSyncFunction7E8D8797",
+        "FunctionId"
+       ]
+      }
+     ]
+    },
+    "Runtime": {
+     "Name": "APPSYNC_JS",
+     "RuntimeVersion": "1.0.0"
+    },
+    "TypeName": "Subscription"
+   },
+   "DependsOn": [
+    "amplifyDataGraphQLAPITransformerSchemaFF50A789"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/subscriptionOnCreateAssistantResponseChatResolver"
+   }
+  },
+  "amplifyDataQuerychatNamerauth0FunctionQuerychatNamerauth0FunctionAppSyncFunctionF3EED9E5": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPI42A6FA33",
+      "ApiId"
+     ]
+    },
+    "DataSourceName": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPINONEDS684BF699",
+      "Name"
+     ]
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "QuerychatNamerauth0Function",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/3d72cc99f51abdee9e8ef0ac8f5f84a36b933ea339e0dabbc93ff98009dbf274.vtl"
+    },
+    "ResponseMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/de2d01bac873d09bcb8f5a6b48e9a3a6e14bbd5d714d9870ac92d709dfc3f3aa.vtl"
+    }
+   },
+   "DependsOn": [
+    "amplifyDataGraphQLAPITransformerSchemaFF50A789"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/QuerychatNamerauth0Function/QuerychatNamerauth0Function.AppSyncFunction"
+   }
+  },
+  "amplifyDataQueryChatNamerDataResolverFnQueryChatNamerDataResolverFnAppSyncFunctionA53BCFAF": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPI42A6FA33",
+      "ApiId"
+     ]
+    },
+    "CodeS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/eb07c56c30c87d3e7225371f7822ba830d5df265fe35322521203262454edd23.eb07c56c30c87d3e7225371f7822ba830d5df265fe35322521203262454edd23"
+    },
+    "DataSourceName": {
+     "Fn::GetAtt": [
+      "amplifyDataGenerationBedrockDataSourceChatNamerStackNestedStackGenerationBedrockDataSourceChatNamerStackNestedStackResourceE547123D",
+      "Outputs.amplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataGenerationBedrockDataSourceChatNamerStackGenerationBedrockDataSourceChatNamerDataSourceA37DB580Name"
+     ]
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "QueryChatNamerDataResolverFn",
+    "Runtime": {
+     "Name": "APPSYNC_JS",
+     "RuntimeVersion": "1.0.0"
+    }
+   },
+   "DependsOn": [
+    "amplifyDataGenerationBedrockDataSourceChatNamerStackNestedStackGenerationBedrockDataSourceChatNamerStackNestedStackResourceE547123D",
+    "amplifyDataGraphQLAPITransformerSchemaFF50A789"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/QueryChatNamerDataResolverFn/QueryChatNamerDataResolverFn.AppSyncFunction"
+   }
+  },
+  "QuerychatNamerResolver": {
+   "Type": "AWS::AppSync::Resolver",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPI42A6FA33",
+      "ApiId"
+     ]
+    },
+    "Code": {
+     "Fn::Join": [
+      "",
+      [
+       "export const request = (ctx) => {\n  ctx.stash.typeName = \"Query\";\n  ctx.stash.fieldName = \"chatNamer\";\n  ctx.stash.conditions = [];\n  ctx.stash.metadata = {};\n  ctx.stash.metadata.dataSourceType = \"HTTP\";\n  ctx.stash.metadata.apiId = \"",
+       {
+        "Fn::GetAtt": [
+         "amplifyDataGraphQLAPI42A6FA33",
+         "ApiId"
+        ]
+       },
+       "\";\n  ctx.stash.connectionAttributes = {};\n  ctx.stash.endpoint = \"https://bedrock-runtime.",
+       {
+        "Ref": "AWS::Region"
+       },
+       ".amazonaws.com\";\n  ctx.stash.authRole = \"arn:aws:sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthauthenticatedUserRoleC12C907CRef"
+       },
+       "/CognitoIdentityCredentials\";\n  ctx.stash.unauthRole = \"arn:aws:sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthunauthenticatedUserRole91D7ABF2Ref"
+       },
+       "/CognitoIdentityCredentials\";\n  ctx.stash.identityPoolId = \"",
+       {
+        "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthIdentityPool3F9DC4DCRef"
+       },
+       "\";\n  ctx.stash.adminRoles = [];\n  return {};\n}\n\nexport const response = (ctx) => {\n  return ctx.prev.result;\n};"
+      ]
+     ]
+    },
+    "FieldName": "chatNamer",
+    "Kind": "PIPELINE",
+    "PipelineConfig": {
+     "Functions": [
+      {
+       "Fn::GetAtt": [
+        "amplifyDataQuerychatNamerauth0FunctionQuerychatNamerauth0FunctionAppSyncFunctionF3EED9E5",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "amplifyDataQueryChatNamerDataResolverFnQueryChatNamerDataResolverFnAppSyncFunctionA53BCFAF",
+        "FunctionId"
+       ]
+      }
+     ]
+    },
+    "Runtime": {
+     "Name": "APPSYNC_JS",
+     "RuntimeVersion": "1.0.0"
+    },
+    "TypeName": "Query"
+   },
+   "DependsOn": [
+    "amplifyDataGraphQLAPITransformerSchemaFF50A789"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/queryChatNamerResolver"
+   }
+  },
+  "amplifyDataQuerygenerateRecipeauth0FunctionQuerygenerateRecipeauth0FunctionAppSyncFunctionF9A4F438": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPI42A6FA33",
+      "ApiId"
+     ]
+    },
+    "DataSourceName": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPINONEDS684BF699",
+      "Name"
+     ]
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "QuerygenerateRecipeauth0Function",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/3d72cc99f51abdee9e8ef0ac8f5f84a36b933ea339e0dabbc93ff98009dbf274.vtl"
+    },
+    "ResponseMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/011bc537c1a652b4b27409e59fc96ae3ef95b87e2d0711645b07bd92fb6169d6.vtl"
+    }
+   },
+   "DependsOn": [
+    "amplifyDataGraphQLAPITransformerSchemaFF50A789"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/QuerygenerateRecipeauth0Function/QuerygenerateRecipeauth0Function.AppSyncFunction"
+   }
+  },
+  "amplifyDataQueryGenerateRecipeDataResolverFnQueryGenerateRecipeDataResolverFnAppSyncFunctionB42F55CC": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPI42A6FA33",
+      "ApiId"
+     ]
+    },
+    "CodeS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/702b4d3adb85ee4c76fad37dfface133fb230fb43a2c8959976f3e422397fd69.702b4d3adb85ee4c76fad37dfface133fb230fb43a2c8959976f3e422397fd69"
+    },
+    "DataSourceName": {
+     "Fn::GetAtt": [
+      "amplifyDataGenerationBedrockDataSourceGenerateRecipeStackNestedStackGenerationBedrockDataSourceGenerateRecipeStackNestedStackResource7F0048EF",
+      "Outputs.amplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataGenerationBedrockDataSourceGenerateRecipeStackGenerationBedrockDataSourceGenerateRecipeDataSource5AA9BE68Name"
+     ]
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "QueryGenerateRecipeDataResolverFn",
+    "Runtime": {
+     "Name": "APPSYNC_JS",
+     "RuntimeVersion": "1.0.0"
+    }
+   },
+   "DependsOn": [
+    "amplifyDataGenerationBedrockDataSourceGenerateRecipeStackNestedStackGenerationBedrockDataSourceGenerateRecipeStackNestedStackResource7F0048EF",
+    "amplifyDataGraphQLAPITransformerSchemaFF50A789"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/QueryGenerateRecipeDataResolverFn/QueryGenerateRecipeDataResolverFn.AppSyncFunction"
+   }
+  },
+  "QuerygenerateRecipeResolver": {
+   "Type": "AWS::AppSync::Resolver",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPI42A6FA33",
+      "ApiId"
+     ]
+    },
+    "Code": {
+     "Fn::Join": [
+      "",
+      [
+       "export const request = (ctx) => {\n  ctx.stash.typeName = \"Query\";\n  ctx.stash.fieldName = \"generateRecipe\";\n  ctx.stash.conditions = [];\n  ctx.stash.metadata = {};\n  ctx.stash.metadata.dataSourceType = \"HTTP\";\n  ctx.stash.metadata.apiId = \"",
+       {
+        "Fn::GetAtt": [
+         "amplifyDataGraphQLAPI42A6FA33",
+         "ApiId"
+        ]
+       },
+       "\";\n  ctx.stash.connectionAttributes = {};\n  ctx.stash.endpoint = \"https://bedrock-runtime.",
+       {
+        "Ref": "AWS::Region"
+       },
+       ".amazonaws.com\";\n  ctx.stash.authRole = \"arn:aws:sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthauthenticatedUserRoleC12C907CRef"
+       },
+       "/CognitoIdentityCredentials\";\n  ctx.stash.unauthRole = \"arn:aws:sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthunauthenticatedUserRole91D7ABF2Ref"
+       },
+       "/CognitoIdentityCredentials\";\n  ctx.stash.identityPoolId = \"",
+       {
+        "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthIdentityPool3F9DC4DCRef"
+       },
+       "\";\n  ctx.stash.adminRoles = [];\n  return {};\n}\n\nexport const response = (ctx) => {\n  return ctx.prev.result;\n};"
+      ]
+     ]
+    },
+    "FieldName": "generateRecipe",
+    "Kind": "PIPELINE",
+    "PipelineConfig": {
+     "Functions": [
+      {
+       "Fn::GetAtt": [
+        "amplifyDataQuerygenerateRecipeauth0FunctionQuerygenerateRecipeauth0FunctionAppSyncFunctionF9A4F438",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "amplifyDataQueryGenerateRecipeDataResolverFnQueryGenerateRecipeDataResolverFnAppSyncFunctionB42F55CC",
+        "FunctionId"
+       ]
+      }
+     ]
+    },
+    "Runtime": {
+     "Name": "APPSYNC_JS",
+     "RuntimeVersion": "1.0.0"
+    },
+    "TypeName": "Query"
+   },
+   "DependsOn": [
+    "amplifyDataGraphQLAPITransformerSchemaFF50A789"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/queryGenerateRecipeResolver"
+   }
+  },
+  "amplifyDataAmplifyCodegenAssetsAmplifyCodegenAssetsBucket9CCB4ACA": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "CorsConfiguration": {
+     "CorsRules": [
+      {
+       "AllowedHeaders": [
+        "*"
+       ],
+       "AllowedMethods": [
+        "GET",
+        "HEAD"
+       ],
+       "AllowedOrigins": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "https://",
+           {
+            "Ref": "AWS::Region"
+           },
+           ".console.aws.amazon.com/amplify"
+          ]
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "Tags": [
+     {
+      "Key": "amplify:deployment-type",
+      "Value": "sandbox"
+     },
+     {
+      "Key": "amplify:friendly-name",
+      "Value": "amplifyData"
+     },
+     {
+      "Key": "aws-cdk:auto-delete-objects",
+      "Value": "true"
+     },
+     {
+      "Key": "aws-cdk:cr-owned:29b628aa",
+      "Value": "true"
+     },
+     {
+      "Key": "created-by",
+      "Value": "amplify"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/AmplifyCodegenAssets/AmplifyCodegenAssetsBucket/Resource"
+   }
+  },
+  "amplifyDataAmplifyCodegenAssetsAmplifyCodegenAssetsBucketPolicyF1C1C548": {
+   "Type": "AWS::S3::BucketPolicy",
+   "Properties": {
+    "Bucket": {
+     "Ref": "amplifyDataAmplifyCodegenAssetsAmplifyCodegenAssetsBucket9CCB4ACA"
+    },
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "s3:PutBucketPolicy",
+        "s3:GetBucket*",
+        "s3:List*",
+        "s3:DeleteObject*"
+       ],
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": {
+         "Fn::GetAtt": [
+          "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+          "Arn"
+         ]
+        }
+       },
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "amplifyDataAmplifyCodegenAssetsAmplifyCodegenAssetsBucket9CCB4ACA",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "amplifyDataAmplifyCodegenAssetsAmplifyCodegenAssetsBucket9CCB4ACA",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/AmplifyCodegenAssets/AmplifyCodegenAssetsBucket/Policy/Resource"
+   }
+  },
+  "amplifyDataAmplifyCodegenAssetsAmplifyCodegenAssetsBucketAutoDeleteObjectsCustomResource437F26F5": {
+   "Type": "Custom::S3AutoDeleteObjects",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F",
+      "Arn"
+     ]
+    },
+    "BucketName": {
+     "Ref": "amplifyDataAmplifyCodegenAssetsAmplifyCodegenAssetsBucket9CCB4ACA"
+    }
+   },
+   "DependsOn": [
+    "amplifyDataAmplifyCodegenAssetsAmplifyCodegenAssetsBucketPolicyF1C1C548"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/AmplifyCodegenAssets/AmplifyCodegenAssetsBucket/AutoDeleteObjectsCustomResource/Default"
+   }
+  },
+  "amplifyDataAmplifyCodegenAssetsAmplifyCodegenAssetsDeploymentAwsCliLayerE322F905": {
+   "Type": "AWS::Lambda::LayerVersion",
+   "Properties": {
+    "Content": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "2e978c20dab148afad7b0a7cbe53b42a2bcd72c40e670a644721752fae05c2ca.zip"
+    },
+    "Description": "/opt/awscli/aws"
+   },
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/AmplifyCodegenAssets/AmplifyCodegenAssetsDeployment/AwsCliLayer/Resource",
+    "aws:asset:path": "asset.2e978c20dab148afad7b0a7cbe53b42a2bcd72c40e670a644721752fae05c2ca.zip",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Content"
+   }
+  },
+  "amplifyDataAmplifyCodegenAssetsAmplifyCodegenAssetsDeploymentCustomResource1536MiB21775929": {
+   "Type": "Custom::CDKBucketDeployment",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C1536MiBC5D8AB21",
+      "Arn"
+     ]
+    },
+    "SourceBucketNames": [
+     {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     }
+    ],
+    "SourceObjectKeys": [
+     "c4a80d425d2eb49f96860a2bba7352f25fdc59d79208f68d60a7436d37b95def.zip"
+    ],
+    "SourceMarkers": [
+     {}
+    ],
+    "DestinationBucketName": {
+     "Ref": "amplifyDataAmplifyCodegenAssetsAmplifyCodegenAssetsBucket9CCB4ACA"
+    },
+    "Prune": true,
+    "OutputObjectKeys": true,
+    "DestinationBucketArn": {
+     "Fn::GetAtt": [
+      "amplifyDataAmplifyCodegenAssetsAmplifyCodegenAssetsBucket9CCB4ACA",
+      "Arn"
+     ]
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/AmplifyCodegenAssets/AmplifyCodegenAssetsDeployment/CustomResource-1536MiB/Default"
+   }
+  },
+  "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ]
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Sub": "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role"
+   }
+  },
+  "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "faa95a81ae7d7373f3e1f242268f904eb748d8d0fdd306e8a6fe515a1905a7d6.zip"
+    },
+    "Timeout": 900,
+    "MemorySize": 128,
+    "Handler": "index.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+      "Arn"
+     ]
+    },
+    "Runtime": {
+     "Fn::FindInMap": [
+      "LatestNodeRuntimeMap",
+      {
+       "Ref": "AWS::Region"
+      },
+      "value"
+     ]
+    },
+    "Description": {
+     "Fn::Join": [
+      "",
+      [
+       "Lambda function for auto-deleting objects in ",
+       {
+        "Ref": "amplifyDataAmplifyCodegenAssetsAmplifyCodegenAssetsBucket9CCB4ACA"
+       },
+       " S3 bucket."
+      ]
+     ]
+    }
+   },
+   "DependsOn": [
+    "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler",
+    "aws:asset:path": "asset.faa95a81ae7d7373f3e1f242268f904eb748d8d0fdd306e8a6fe515a1905a7d6",
+    "aws:asset:property": "Code"
+   }
+  },
+  "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C1536MiBServiceRoleA41FC8C2": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "amplify:deployment-type",
+      "Value": "sandbox"
+     },
+     {
+      "Key": "created-by",
+      "Value": "amplify"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C1536MiB/ServiceRole/Resource"
+   }
+  },
+  "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C1536MiBServiceRoleDefaultPolicyFF1C635B": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "s3:GetObject*",
+        "s3:GetBucket*",
+        "s3:List*"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":s3:::",
+           {
+            "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+           }
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":s3:::",
+           {
+            "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "s3:GetObject*",
+        "s3:GetBucket*",
+        "s3:List*",
+        "s3:DeleteObject*",
+        "s3:PutObject",
+        "s3:PutObjectLegalHold",
+        "s3:PutObjectRetention",
+        "s3:PutObjectTagging",
+        "s3:PutObjectVersionTagging",
+        "s3:Abort*"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "amplifyDataAmplifyCodegenAssetsAmplifyCodegenAssetsBucket9CCB4ACA",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "amplifyDataAmplifyCodegenAssetsAmplifyCodegenAssetsBucket9CCB4ACA",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C1536MiBServiceRoleDefaultPolicyFF1C635B",
+    "Roles": [
+     {
+      "Ref": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C1536MiBServiceRoleA41FC8C2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C1536MiB/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C1536MiBC5D8AB21": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "c6358465bf49dfae556bb430bf9c81fa578c221b82c308e3707901b1dd654762.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "AWS_CA_BUNDLE": "/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem"
+     }
+    },
+    "Handler": "index.handler",
+    "Layers": [
+     {
+      "Ref": "amplifyDataAmplifyCodegenAssetsAmplifyCodegenAssetsDeploymentAwsCliLayerE322F905"
+     }
+    ],
+    "MemorySize": 1536,
+    "Role": {
+     "Fn::GetAtt": [
+      "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C1536MiBServiceRoleA41FC8C2",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.11",
+    "Tags": [
+     {
+      "Key": "amplify:deployment-type",
+      "Value": "sandbox"
+     },
+     {
+      "Key": "created-by",
+      "Value": "amplify"
+     }
+    ],
+    "Timeout": 900
+   },
+   "DependsOn": [
+    "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C1536MiBServiceRoleDefaultPolicyFF1C635B",
+    "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C1536MiBServiceRoleA41FC8C2"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C1536MiB/Resource",
+    "aws:asset:path": "asset.c6358465bf49dfae556bb430bf9c81fa578c221b82c308e3707901b1dd654762",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "AMPLIFYDATAGRAPHQLENDPOINTParameter1C2CBB16": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Name": "/amplify/resource_reference/amplifyaistarter/sergiobeltran-sandbox-995eb11b60/AMPLIFY_DATA_GRAPHQL_ENDPOINT",
+    "Tags": {
+     "amplify:deployment-type": "sandbox",
+     "created-by": "amplify"
+    },
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "amplifyDataGraphQLAPI42A6FA33",
+      "GraphQLUrl"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/AMPLIFY_DATA_GRAPHQL_ENDPOINTParameter/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/1VRy07DMBD8Fu6ueVTqPQTBgVKVRuJaLc4mXerYxuu0iqL8O7JNX6fdmbVmZ7xP8nGxkA93cOSZqvczTd9yXCEHrKsAai82yLb3CgUceTuCczwYJcc3D273qwtHz8AoysYk5nNZOLpCldphB5EoHL3jIFbW4AsEqLJo2Zhb9NobFcia0pqG2t5DBHEQfegD+knwfDsCMwaWRSyiRqft0KEJ8rlXewwvZyK+lmNmk9HcRsH/Lpe11aSGC53xJDR03zXIsWzMEgb0X+g5GqrItBqDPfsV5+YqxCQIOjlurE7ZUr1sOu1g7uRYBU+mXYOHDgP6ND+BaRIpaBWgJdPGWb5N2XOw3flC/7+U+mx8q6PpLRxZaZLFkUtNKceNfgQf4FzSvpFce3ugGv3pxqU1NeVkxtYof/j+8DSXj/Lh7oeJZr43gTqUm1z/AOoQh7xdAgAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/CDKMetadata/Default"
+   },
+   "Condition": "CDKMetadataAvailable"
+  }
+ },
+ "Parameters": {
+  "DynamoDBModelTableReadIOPS": {
+   "Type": "Number",
+   "Default": 5,
+   "Description": "The number of read IOPS the table should support."
+  },
+  "DynamoDBModelTableWriteIOPS": {
+   "Type": "Number",
+   "Default": 5,
+   "Description": "The number of write IOPS the table should support."
+  },
+  "DynamoDBBillingMode": {
+   "Type": "String",
+   "Default": "PAY_PER_REQUEST",
+   "AllowedValues": [
+    "PAY_PER_REQUEST",
+    "PROVISIONED"
+   ],
+   "Description": "Configure @model types to create DynamoDB tables with PAY_PER_REQUEST or PROVISIONED billing modes."
+  },
+  "DynamoDBEnablePointInTimeRecovery": {
+   "Type": "String",
+   "Default": "false",
+   "AllowedValues": [
+    "true",
+    "false"
+   ],
+   "Description": "Whether to enable Point in Time Recovery on the table."
+  },
+  "DynamoDBEnableServerSideEncryption": {
+   "Type": "String",
+   "Default": "true",
+   "AllowedValues": [
+    "true",
+    "false"
+   ],
+   "Description": "Enable server side encryption powered by KMS."
+  },
+  "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthUserPool1A6DA250Ref": {
+   "Type": "String"
+  },
+  "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthauthenticatedUserRoleC12C907CRef": {
+   "Type": "String"
+  },
+  "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthunauthenticatedUserRole91D7ABF2Ref": {
+   "Type": "String"
+  },
+  "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthIdentityPool3F9DC4DCRef": {
+   "Type": "String"
+  },
+  "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60functionNestedStackfunctionNestedStackResource8DE3B463Outputsamplifyamplifyaistartersergiobeltransandbox995eb11b60functiongetWeatherlambda73ECBC9AArn": {
+   "Type": "String"
+  }
+ },
+ "Mappings": {
+  "LatestNodeRuntimeMap": {
+   "af-south-1": {
+    "value": "nodejs20.x"
+   },
+   "ap-east-1": {
+    "value": "nodejs20.x"
+   },
+   "ap-northeast-1": {
+    "value": "nodejs20.x"
+   },
+   "ap-northeast-2": {
+    "value": "nodejs20.x"
+   },
+   "ap-northeast-3": {
+    "value": "nodejs20.x"
+   },
+   "ap-south-1": {
+    "value": "nodejs20.x"
+   },
+   "ap-south-2": {
+    "value": "nodejs20.x"
+   },
+   "ap-southeast-1": {
+    "value": "nodejs20.x"
+   },
+   "ap-southeast-2": {
+    "value": "nodejs20.x"
+   },
+   "ap-southeast-3": {
+    "value": "nodejs20.x"
+   },
+   "ap-southeast-4": {
+    "value": "nodejs20.x"
+   },
+   "ap-southeast-5": {
+    "value": "nodejs20.x"
+   },
+   "ap-southeast-7": {
+    "value": "nodejs20.x"
+   },
+   "ca-central-1": {
+    "value": "nodejs20.x"
+   },
+   "ca-west-1": {
+    "value": "nodejs20.x"
+   },
+   "cn-north-1": {
+    "value": "nodejs18.x"
+   },
+   "cn-northwest-1": {
+    "value": "nodejs18.x"
+   },
+   "eu-central-1": {
+    "value": "nodejs20.x"
+   },
+   "eu-central-2": {
+    "value": "nodejs20.x"
+   },
+   "eu-isoe-west-1": {
+    "value": "nodejs18.x"
+   },
+   "eu-north-1": {
+    "value": "nodejs20.x"
+   },
+   "eu-south-1": {
+    "value": "nodejs20.x"
+   },
+   "eu-south-2": {
+    "value": "nodejs20.x"
+   },
+   "eu-west-1": {
+    "value": "nodejs20.x"
+   },
+   "eu-west-2": {
+    "value": "nodejs20.x"
+   },
+   "eu-west-3": {
+    "value": "nodejs20.x"
+   },
+   "il-central-1": {
+    "value": "nodejs20.x"
+   },
+   "me-central-1": {
+    "value": "nodejs20.x"
+   },
+   "me-south-1": {
+    "value": "nodejs20.x"
+   },
+   "mx-central-1": {
+    "value": "nodejs20.x"
+   },
+   "sa-east-1": {
+    "value": "nodejs20.x"
+   },
+   "us-east-1": {
+    "value": "nodejs20.x"
+   },
+   "us-east-2": {
+    "value": "nodejs20.x"
+   },
+   "us-gov-east-1": {
+    "value": "nodejs18.x"
+   },
+   "us-gov-west-1": {
+    "value": "nodejs18.x"
+   },
+   "us-iso-east-1": {
+    "value": "nodejs18.x"
+   },
+   "us-iso-west-1": {
+    "value": "nodejs18.x"
+   },
+   "us-isob-east-1": {
+    "value": "nodejs18.x"
+   },
+   "us-west-1": {
+    "value": "nodejs20.x"
+   },
+   "us-west-2": {
+    "value": "nodejs20.x"
+   }
+  }
+ },
+ "Conditions": {
+  "CDKMetadataAvailable": {
+   "Fn::Or": [
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "af-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-3"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-south-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-3"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-4"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ca-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ca-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-northwest-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-central-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-south-2"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-3"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "il-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "me-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "me-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "sa-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-west-1"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Equals": [
+      {
+       "Ref": "AWS::Region"
+      },
+      "us-west-2"
+     ]
+    }
+   ]
+  }
+ },
+ "Outputs": {
+  "amplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataGraphQLAPIB5047CC8ApiId": {
+   "Value": {
+    "Fn::GetAtt": [
+     "amplifyDataGraphQLAPI42A6FA33",
+     "ApiId"
+    ]
+   }
+  },
+  "amplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataGraphQLAPIB5047CC8GraphQLUrl": {
+   "Value": {
+    "Fn::GetAtt": [
+     "amplifyDataGraphQLAPI42A6FA33",
+     "GraphQLUrl"
+    ]
+   }
+  },
+  "amplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataAmplifyCodegenAssetsAmplifyCodegenAssetsDeploymentCustomResource1536MiBCE72E823DestinationBucketArn": {
+   "Value": {
+    "Fn::GetAtt": [
+     "amplifyDataAmplifyCodegenAssetsAmplifyCodegenAssetsDeploymentCustomResource1536MiB21775929",
+     "DestinationBucketArn"
+    ]
+   }
+  },
+  "amplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataGraphQLAPIDefaultApiKey75053A3BApiKey": {
+   "Value": {
+    "Fn::GetAtt": [
+     "amplifyDataGraphQLAPIDefaultApiKey1C8ED374",
+     "ApiKey"
+    ]
+   }
+  }
+ }
+}

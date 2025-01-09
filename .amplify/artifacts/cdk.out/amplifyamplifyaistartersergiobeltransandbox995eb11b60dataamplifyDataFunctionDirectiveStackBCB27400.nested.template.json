@@ -1,0 +1,518 @@
+{
+ "Description": "An auto-generated nested stack for the @function directive.",
+ "AWSTemplateFormatVersion": "2010-09-09",
+ "Conditions": {
+  "HasEnvironmentParameter": {
+   "Fn::Not": [
+    {
+     "Fn::Equals": [
+      "NONE",
+      "NONE"
+     ]
+    }
+   ]
+  },
+  "CDKMetadataAvailable": {
+   "Fn::Or": [
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "af-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-3"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-south-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-3"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-4"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ca-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ca-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-northwest-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-central-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-south-2"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-3"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "il-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "me-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "me-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "sa-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-west-1"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Equals": [
+      {
+       "Ref": "AWS::Region"
+      },
+      "us-west-2"
+     ]
+    }
+   ]
+  }
+ },
+ "Resources": {
+  "FnGetWeatherLambdaDataSourceServiceRole35D969F1": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "appsync.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Tags": [
+     {
+      "Key": "amplify:deployment-type",
+      "Value": "sandbox"
+     },
+     {
+      "Key": "amplify:friendly-name",
+      "Value": "amplifyData"
+     },
+     {
+      "Key": "created-by",
+      "Value": "amplify"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/FunctionDirectiveStack/FnGetWeatherLambdaDataSource/ServiceRole/Resource"
+   }
+  },
+  "FnGetWeatherLambdaDataSourceServiceRoleDefaultPolicy2A658657": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "lambda:InvokeFunction",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60functionNestedStackfunctionNestedStackResource8DE3B463Outputsamplifyamplifyaistartersergiobeltransandbox995eb11b60functiongetWeatherlambda73ECBC9AArn"
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60functionNestedStackfunctionNestedStackResource8DE3B463Outputsamplifyamplifyaistartersergiobeltransandbox995eb11b60functiongetWeatherlambda73ECBC9AArn"
+           },
+           ":*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "FnGetWeatherLambdaDataSourceServiceRoleDefaultPolicy2A658657",
+    "Roles": [
+     {
+      "Ref": "FnGetWeatherLambdaDataSourceServiceRole35D969F1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/FunctionDirectiveStack/FnGetWeatherLambdaDataSource/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "FnGetWeatherLambdaDataSource": {
+   "Type": "AWS::AppSync::DataSource",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataGraphQLAPIB5047CC8ApiId"
+    },
+    "LambdaConfig": {
+     "LambdaFunctionArn": {
+      "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60functionNestedStackfunctionNestedStackResource8DE3B463Outputsamplifyamplifyaistartersergiobeltransandbox995eb11b60functiongetWeatherlambda73ECBC9AArn"
+     }
+    },
+    "Name": "FnGetWeatherLambdaDataSource",
+    "ServiceRoleArn": {
+     "Fn::GetAtt": [
+      "FnGetWeatherLambdaDataSourceServiceRole35D969F1",
+      "Arn"
+     ]
+    },
+    "Type": "AWS_LAMBDA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/FunctionDirectiveStack/FnGetWeatherLambdaDataSource/Resource"
+   }
+  },
+  "InvokeFnGetWeatherLambdaDataSourceInvokeFnGetWeatherLambdaDataSourceAppSyncFunction3725344F": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataGraphQLAPIB5047CC8ApiId"
+    },
+    "DataSourceName": {
+     "Fn::GetAtt": [
+      "FnGetWeatherLambdaDataSource",
+      "Name"
+     ]
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "InvokeFnGetWeatherLambdaDataSource",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/9ff95a059e7c3f6f99d5182651cfbbd7b43978798c20bd5fb67772d28aa2800e.vtl"
+    },
+    "ResponseMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/a20e304512b1fde77dc16ed9d5e0ed03817afcab629ce87ef11c99877b7b1e30.vtl"
+    }
+   },
+   "DependsOn": [
+    "FnGetWeatherLambdaDataSource"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/FunctionDirectiveStack/InvokeFnGetWeatherLambdaDataSource/InvokeFnGetWeatherLambdaDataSource.AppSyncFunction"
+   }
+  },
+  "QuerygetWeatherResolver": {
+   "Type": "AWS::AppSync::Resolver",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataGraphQLAPIB5047CC8ApiId"
+    },
+    "FieldName": "getWeather",
+    "Kind": "PIPELINE",
+    "PipelineConfig": {
+     "Functions": [
+      {
+       "Fn::GetAtt": [
+        "QueryGetWeatherAuthFNQueryGetWeatherAuthFNAppSyncFunction98B6794D",
+        "FunctionId"
+       ]
+      },
+      {
+       "Fn::GetAtt": [
+        "InvokeFnGetWeatherLambdaDataSourceInvokeFnGetWeatherLambdaDataSourceAppSyncFunction3725344F",
+        "FunctionId"
+       ]
+      }
+     ]
+    },
+    "RequestMappingTemplate": {
+     "Fn::Join": [
+      "",
+      [
+       "## [Start] Stash resolver specific context.. **\n$util.qr($ctx.stash.put(\"typeName\", \"Query\"))\n$util.qr($ctx.stash.put(\"fieldName\", \"getWeather\"))\n$util.qr($ctx.stash.put(\"authRole\", \"arn:aws:sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthauthenticatedUserRoleC12C907CRef"
+       },
+       "/CognitoIdentityCredentials\"))\n$util.qr($ctx.stash.put(\"unauthRole\", \"arn:aws:sts::",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":assumed-role/",
+       {
+        "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthunauthenticatedUserRole91D7ABF2Ref"
+       },
+       "/CognitoIdentityCredentials\"))\n$util.qr($ctx.stash.put(\"identityPoolId\", \"",
+       {
+        "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthIdentityPool3F9DC4DCRef"
+       },
+       "\"))\n$util.qr($ctx.stash.put(\"adminRoles\", []))\n{}\n## [End] Stash resolver specific context.. **"
+      ]
+     ]
+    },
+    "ResponseMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/387d5992f5fc03d05de27289457dcc374a84c42a889acb504aff1031047dde00.vtl"
+    },
+    "TypeName": "Query"
+   },
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/FunctionDirectiveStack/queryGetWeatherResolver"
+   }
+  },
+  "QueryGetWeatherAuthFNQueryGetWeatherAuthFNAppSyncFunction98B6794D": {
+   "Type": "AWS::AppSync::FunctionConfiguration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataGraphQLAPIB5047CC8ApiId"
+    },
+    "DataSourceName": {
+     "Ref": "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataGraphQLAPINONEDSCE422538Name"
+    },
+    "FunctionVersion": "2018-05-29",
+    "Name": "QueryGetWeatherAuthFN",
+    "RequestMappingTemplateS3Location": {
+     "Fn::Sub": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/3d72cc99f51abdee9e8ef0ac8f5f84a36b933ea339e0dabbc93ff98009dbf274.vtl"
+    },
+    "ResponseMappingTemplate": "$util.toJson({})"
+   },
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/FunctionDirectiveStack/QueryGetWeatherAuthFN/QueryGetWeatherAuthFN.AppSyncFunction"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WNzY7CMAyEn4V7an4qcYciTgit2gdAJnEr09ZBdQJCVd99laA97OnzaMYzO9ju97BZ4VsL6/pi4DvMV9JArgloe1O1UnlxHNiLwbfeZnw+9SMW5guOd4cnDNj4OFlK2f/qHMWmx8pLy12cMLdUrdSkfnjRtBjGEebaDzmf+eMHtp8kv9ditLyhKgWFQ4LREo7R9hSOqLSYVJYXs9sE7Fi6v5VkLEa8I3jo+rUrYQub1UOZiylK4JGg/vIX30Z1ogsBAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifyaistarter-sergiobeltran-sandbox-995eb11b60/data/amplifyData/FunctionDirectiveStack/CDKMetadata/Default"
+   },
+   "Condition": "CDKMetadataAvailable"
+  }
+ },
+ "Parameters": {
+  "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60functionNestedStackfunctionNestedStackResource8DE3B463Outputsamplifyamplifyaistartersergiobeltransandbox995eb11b60functiongetWeatherlambda73ECBC9AArn": {
+   "Type": "String"
+  },
+  "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataGraphQLAPIB5047CC8ApiId": {
+   "Type": "String"
+  },
+  "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthauthenticatedUserRoleC12C907CRef": {
+   "Type": "String"
+  },
+  "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthunauthenticatedUserRole91D7ABF2Ref": {
+   "Type": "String"
+  },
+  "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60authNestedStackauthNestedStackResource711132ACOutputsamplifyamplifyaistartersergiobeltransandbox995eb11b60authamplifyAuthIdentityPool3F9DC4DCRef": {
+   "Type": "String"
+  },
+  "referencetoamplifyamplifyaistartersergiobeltransandbox995eb11b60dataamplifyDataGraphQLAPINONEDSCE422538Name": {
+   "Type": "String"
+  }
+ }
+}

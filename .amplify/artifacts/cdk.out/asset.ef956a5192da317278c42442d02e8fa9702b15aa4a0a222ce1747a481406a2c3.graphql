@@ -1,0 +1,530 @@
+type Temperature @aws_cognito_user_pools {
+  value: Int
+  unit: String
+}
+
+type ChatNamerReturnType @aws_cognito_user_pools {
+  name: String
+}
+
+type GenerateRecipeReturnType @aws_cognito_user_pools {
+  name: String
+  ingredients: [String]
+  instructions: String
+}
+
+type Mutation {
+  createAssistantResponseChat(input: CreateConversationMessageChatAssistantInput!): ConversationMessageChat @aws_cognito_user_pools
+  createAssistantResponseStreamChat(input: CreateConversationMessageChatAssistantStreamingInput!): ConversationMessageStreamPart @aws_cognito_user_pools
+  chat(conversationId: ID!, content: [ContentBlockInput], aiContext: AWSJSON, toolConfiguration: ToolConfigurationInput): ConversationMessage @aws_cognito_user_pools @aws_iam
+  createConversationChat(input: CreateConversationChatInput!, condition: ModelConversationChatConditionInput): ConversationChat @aws_iam @aws_cognito_user_pools
+  updateConversationChat(input: UpdateConversationChatInput!, condition: ModelConversationChatConditionInput): ConversationChat @aws_iam @aws_cognito_user_pools
+  deleteConversationChat(input: DeleteConversationChatInput!, condition: ModelConversationChatConditionInput): ConversationChat @aws_iam @aws_cognito_user_pools
+  createConversationMessageChat(input: CreateConversationMessageChatInput!, condition: ModelConversationMessageChatConditionInput): ConversationMessageChat @aws_iam @aws_cognito_user_pools
+  deleteConversationMessageChat(input: DeleteConversationMessageChatInput!, condition: ModelConversationMessageChatConditionInput): ConversationMessageChat @aws_iam @aws_cognito_user_pools
+}
+
+type Query {
+  getConversationChat(id: ID!): ConversationChat @aws_iam @aws_cognito_user_pools
+  listConversationChats(filter: ModelConversationChatFilterInput, limit: Int, nextToken: String): ModelConversationChatConnection @aws_iam @aws_cognito_user_pools
+  getConversationMessageChat(id: ID!): ConversationMessageChat @aws_iam @aws_cognito_user_pools
+  listConversationMessageChats(filter: ModelConversationMessageChatFilterInput, limit: Int, nextToken: String): ModelConversationMessageChatConnection @aws_iam @aws_cognito_user_pools
+  getWeather(city: String): Temperature @aws_iam @aws_cognito_user_pools
+  chatNamer(content: String): ChatNamerReturnType @aws_iam @aws_cognito_user_pools
+  generateRecipe(description: String): GenerateRecipeReturnType @aws_iam @aws_cognito_user_pools
+}
+
+enum ConversationParticipantRole {
+  user
+  assistant
+}
+
+interface ConversationMessage {
+  id: ID!
+  conversationId: ID!
+  role: ConversationParticipantRole
+  content: [ContentBlock]
+  aiContext: AWSJSON
+  toolConfiguration: ToolConfiguration
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  owner: String
+}
+
+input DocumentBlockSourceInput {
+  bytes: String
+}
+
+input DocumentBlockInput {
+  format: String!
+  name: String!
+  source: DocumentBlockSourceInput!
+}
+
+input ImageBlockSourceInput {
+  bytes: String
+}
+
+input ImageBlockInput {
+  format: String!
+  source: ImageBlockSourceInput!
+}
+
+input ToolUseBlockInput {
+  toolUseId: String!
+  name: String!
+  input: AWSJSON!
+}
+
+input ToolResultContentBlockInput {
+  document: DocumentBlockInput
+  image: ImageBlockInput
+  json: AWSJSON
+  text: String
+}
+
+input ToolResultBlockInput {
+  content: [ToolResultContentBlockInput!]!
+  toolUseId: String!
+  status: String
+}
+
+type DocumentBlockSource @aws_iam @aws_cognito_user_pools {
+  bytes: String
+}
+
+type DocumentBlock @aws_iam @aws_cognito_user_pools {
+  format: String!
+  name: String!
+  source: DocumentBlockSource!
+}
+
+type ImageBlock @aws_iam @aws_cognito_user_pools {
+  format: String!
+  source: ImageBlockSource!
+}
+
+type ImageBlockSource @aws_iam @aws_cognito_user_pools {
+  bytes: String
+}
+
+type ToolUseBlock @aws_iam @aws_cognito_user_pools {
+  toolUseId: String!
+  name: String!
+  input: AWSJSON!
+}
+
+type ToolResultContentBlock @aws_iam @aws_cognito_user_pools {
+  document: DocumentBlock
+  image: ImageBlock
+  json: AWSJSON
+  text: String
+}
+
+type ToolResultBlock @aws_iam @aws_cognito_user_pools {
+  content: [ToolResultContentBlock!]!
+  toolUseId: String!
+  status: String
+}
+
+type ContentBlockText {
+  text: String
+}
+
+type ContentBlockImage {
+  image: ImageBlock
+}
+
+type ContentBlockDocument {
+  document: DocumentBlock
+}
+
+type ContentBlockToolUse {
+  toolUse: ToolUseBlock
+}
+
+type ContentBlockToolResult {
+  toolResult: ToolResultBlock
+}
+
+input ContentBlockInput {
+  text: String
+  document: DocumentBlockInput
+  image: ImageBlockInput
+  toolResult: ToolResultBlockInput
+  toolUse: ToolUseBlockInput
+}
+
+type ContentBlock @aws_iam @aws_cognito_user_pools {
+  text: String
+  document: DocumentBlock
+  image: ImageBlock
+  toolResult: ToolResultBlock
+  toolUse: ToolUseBlock
+}
+
+input ToolConfigurationInput {
+  tools: [ToolInput]
+}
+
+input ToolInput {
+  toolSpec: ToolSpecificationInput
+}
+
+input ToolSpecificationInput {
+  name: String!
+  description: String
+  inputSchema: ToolInputSchemaInput!
+}
+
+input ToolInputSchemaInput {
+  json: AWSJSON
+}
+
+type ToolConfiguration @aws_iam @aws_cognito_user_pools {
+  tools: [Tool]
+}
+
+type Tool @aws_iam @aws_cognito_user_pools {
+  toolSpec: ToolSpecification
+}
+
+type ToolSpecification @aws_iam @aws_cognito_user_pools {
+  name: String!
+  description: String
+  inputSchema: ToolInputSchema!
+}
+
+type ToolInputSchema @aws_iam @aws_cognito_user_pools {
+  json: AWSJSON
+}
+
+type ConversationMessageStreamPart @aws_cognito_user_pools {
+  id: ID!
+  owner: String
+  conversationId: ID!
+  associatedUserMessageId: ID!
+  contentBlockIndex: Int!
+  contentBlockText: String
+  contentBlockDeltaIndex: Int
+  contentBlockToolUse: ToolUseBlock
+  contentBlockDoneAtIndex: Int
+  stopReason: String
+  errors: [ConversationTurnError]
+}
+
+type ConversationTurnError @aws_cognito_user_pools {
+  message: String!
+  errorType: String!
+}
+
+input ConversationTurnErrorInput {
+  errorType: String!
+  message: String!
+}
+
+input CreateConversationMessageChatAssistantInput {
+  conversationId: ID
+  content: [ContentBlockInput]
+  associatedUserMessageId: ID
+}
+
+input CreateConversationMessageChatAssistantStreamingInput {
+  conversationId: ID!
+  associatedUserMessageId: ID!
+  contentBlockIndex: Int
+  contentBlockText: String
+  contentBlockDeltaIndex: Int
+  contentBlockToolUse: AWSJSON
+  contentBlockDoneAtIndex: Int
+  stopReason: String
+  accumulatedTurnContent: [ContentBlockInput]
+  errors: [ConversationTurnErrorInput]
+}
+
+type Subscription {
+  onCreateAssistantResponseChat(conversationId: ID): ConversationMessageStreamPart @aws_subscribe(mutations: ["createAssistantResponseStreamChat"]) @aws_cognito_user_pools
+  onCreateConversationMessageChat(filter: ModelSubscriptionConversationMessageChatFilterInput, owner: String): ConversationMessageChat @aws_subscribe(mutations: ["createConversationMessageChat"]) @aws_iam @aws_cognito_user_pools
+}
+
+type ConversationChat @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  name: String
+  metadata: AWSJSON
+  messages(filter: ModelConversationMessageChatFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelConversationMessageChatConnection
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  owner: String
+}
+
+type ConversationMessageChat implements ConversationMessage @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  conversationId: ID!
+  conversation: ConversationChat
+  role: ConversationParticipantRole
+  content: [ContentBlock]
+  aiContext: AWSJSON
+  toolConfiguration: ToolConfiguration
+  associatedUserMessageId: ID
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  owner: String
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelSubscriptionStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  in: [String]
+  notIn: [String]
+}
+
+input ModelSubscriptionIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  in: [Int]
+  notIn: [Int]
+}
+
+input ModelSubscriptionFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  in: [Float]
+  notIn: [Float]
+}
+
+input ModelSubscriptionBooleanInput {
+  ne: Boolean
+  eq: Boolean
+}
+
+input ModelSubscriptionIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  in: [ID]
+  notIn: [ID]
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelConversationChatConnection @aws_iam @aws_cognito_user_pools {
+  items: [ConversationChat]!
+  nextToken: String
+}
+
+input ModelConversationChatFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  metadata: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelConversationChatFilterInput]
+  or: [ModelConversationChatFilterInput]
+  not: ModelConversationChatFilterInput
+  owner: ModelStringInput
+}
+
+input ModelConversationChatConditionInput {
+  name: ModelStringInput
+  metadata: ModelStringInput
+  and: [ModelConversationChatConditionInput]
+  or: [ModelConversationChatConditionInput]
+  not: ModelConversationChatConditionInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  owner: ModelStringInput
+}
+
+input CreateConversationChatInput {
+  id: ID
+  name: String
+  metadata: AWSJSON
+}
+
+input UpdateConversationChatInput {
+  id: ID!
+  name: String
+  metadata: AWSJSON
+}
+
+input DeleteConversationChatInput {
+  id: ID!
+}
+
+type ModelConversationMessageChatConnection @aws_iam @aws_cognito_user_pools {
+  items: [ConversationMessageChat]!
+  nextToken: String
+}
+
+input ModelConversationParticipantRoleInput {
+  eq: ConversationParticipantRole
+  ne: ConversationParticipantRole
+}
+
+input ModelConversationMessageChatFilterInput {
+  id: ModelIDInput
+  conversationId: ModelIDInput
+  role: ModelConversationParticipantRoleInput
+  aiContext: ModelStringInput
+  associatedUserMessageId: ModelIDInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelConversationMessageChatFilterInput]
+  or: [ModelConversationMessageChatFilterInput]
+  not: ModelConversationMessageChatFilterInput
+  owner: ModelStringInput
+}
+
+input ModelConversationMessageChatConditionInput {
+  conversationId: ModelIDInput
+  role: ModelConversationParticipantRoleInput
+  aiContext: ModelStringInput
+  associatedUserMessageId: ModelIDInput
+  and: [ModelConversationMessageChatConditionInput]
+  or: [ModelConversationMessageChatConditionInput]
+  not: ModelConversationMessageChatConditionInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  owner: ModelStringInput
+}
+
+input CreateConversationMessageChatInput {
+  id: ID
+  conversationId: ID!
+  role: ConversationParticipantRole
+  content: [ContentBlockInput]
+  aiContext: AWSJSON
+  toolConfiguration: ToolConfigurationInput
+  associatedUserMessageId: ID
+}
+
+input DeleteConversationMessageChatInput {
+  id: ID!
+}
+
+input ModelSubscriptionConversationMessageChatFilterInput {
+  id: ModelSubscriptionIDInput
+  conversationId: ModelSubscriptionIDInput
+  role: ModelSubscriptionStringInput
+  aiContext: ModelSubscriptionStringInput
+  associatedUserMessageId: ModelSubscriptionIDInput
+  createdAt: ModelSubscriptionStringInput
+  updatedAt: ModelSubscriptionStringInput
+  and: [ModelSubscriptionConversationMessageChatFilterInput]
+  or: [ModelSubscriptionConversationMessageChatFilterInput]
+  owner: ModelStringInput
+}

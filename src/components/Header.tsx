@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { Button, Flex } from "@aws-amplify/ui-react";
 // import { ThemeContext } from "./ThemeProvider";
 // import { LuMoon, LuSun } from "react-icons/lu";
-import { signOut } from "aws-amplify/auth";
+import { signOut, getCurrentUser } from 'aws-amplify/auth';
 // import { Logo } from "./Logo";
 import mainLogo from'../../public/datavail-logo.svg';
 import { useLocation } from 'react-router-dom';
