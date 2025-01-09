@@ -3,28 +3,13 @@ import { Schema } from "../../amplify/data/resource";
 import { client } from "../client";
 import { useNavigate } from "react-router-dom";
 
-interface ConversationsContextType {
-  conversations: Schema["chat"]["type"][];
-  setConversations: React.Dispatch<
-    React.SetStateAction<Schema["chat"]["type"][]>
-  >;
-  updateConversation: (
-    conversation: Partial<Schema["chat"]["type"]> & { id: string }
-  ) => void;
-  createConversation: () => Promise<Schema["chat"]["type"] | undefined>;
-  deleteConversation: (input: { id: string }) => void;
+interface ConversationContextType {
+  updateConversation: (conversation: { id: string; name: string }) => void;
 }
 
-export const ConversationsContext =
-  React.createContext<ConversationsContextType>({
-    conversations: [],
-    setConversations: () => {},
-    updateConversation: () => {},
-    createConversation: async () => {
-      return new Promise((resolve) => resolve(undefined));
-    },
-    deleteConversation: () => {},
-  });
+export const ConversationsContext = React.createContext<ConversationContextType>({
+  updateConversation: () => {},
+});
 
 export const ConversationsProvider = ({
   children,
@@ -44,7 +29,7 @@ export const ConversationsProvider = ({
     });
   }, []);
 
-  const updateConversation: ConversationsContextType["updateConversation"] = (
+  const updateConversation: ConversationContextType["updateConversation"] = (
     conversation
   ) => {
     client.conversations.chat.update(conversation).then((res) => {

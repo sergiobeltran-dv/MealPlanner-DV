@@ -1,17 +1,19 @@
 import React from 'react';
 
-interface UserPreferences {
+export interface UserPreferences {
   dietaryRestrictions: string[];
   allergies: string[];
   cuisinePreferences: string[];
   calorieTarget?: number;
-  mealPlanType?: 'vegetarian' | 'vegan' | 'keto' | 'paleo' | 'regular';
+  mealPlanType?: string;
 }
 
-export const UserPreferencesContext = React.createContext<{
+interface UserPreferencesContextType {
   preferences: UserPreferences;
-  setPreferences: (value: React.SetStateAction<UserPreferences>) => void;
-}>({
+  setPreferences: React.Dispatch<React.SetStateAction<UserPreferences>>;
+}
+
+export const UserPreferencesContext = React.createContext<UserPreferencesContextType>({
   preferences: {
     dietaryRestrictions: [],
     allergies: [],

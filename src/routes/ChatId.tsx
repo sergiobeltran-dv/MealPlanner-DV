@@ -27,6 +27,21 @@ interface Attachment {
 //   lng: number;
 // }
 
+// Update the message content types
+interface MessageContent {
+  text?: string;
+  attachment?: File;
+}
+
+interface SendMessageParams {
+  content: MessageContent[];
+}
+
+interface PDFTextItem {
+  str: string;
+  // Add other properties if needed
+}
+
 export const ChatIdPage = () => {
   const params = useParams();
   const { updateConversation } = React.useContext(ConversationsContext);
@@ -47,7 +62,7 @@ export const ChatIdPage = () => {
     if (file.type.startsWith('image/')) {
       sendMessage({
         content: [{
-          type: 'attachment',
+          type: 'attachment' as const,
           attachment: file
         }]
       });
@@ -64,13 +79,15 @@ export const ChatIdPage = () => {
         for (let i = 1; i <= pdf.numPages; i++) {
           const page = await pdf.getPage(i);
           const textContent = await page.getTextContent();
-          const pageText = textContent.items.map((item: any) => item.str).join(' ');
+          const pageText = textContent.items
+            .map((item: PDFTextItem) => item.str)
+            .join(' ');
           fullText += `Page ${i}:\n${pageText}\n\n`;
         }
         
         sendMessage({
           content: [{
-            type: 'text',
+            type: 'text' as const,
             text: fullText
           }]
         });
@@ -84,26 +101,35 @@ export const ChatIdPage = () => {
   const imageInputRef = React.useRef<HTMLInputElement>(null);
   const pdfInputRef = React.useRef<HTMLInputElement>(null);
 
+  // Update the handleSendMessage type in AIConversation props
+  const handleSendMessage = (message: SendMessageParams) => {
+    sendMessage(message);
+    if (!conversation?.name) {
+      client.generations
+        .chatNamer({
+          content: message.content.map((c) => c.text ?? "").join(""),
+        })
+        .then((res: { data?: { name: string } }) => {
+          updateConversation({
+            id,
+            name: res.data?.name ?? "",
+          });
+        });
+    }
+  };
+
+  // Update the customInputArea props types
+  interface CustomInputAreaProps {
+    textArea: React.ReactNode;
+    attachButton: React.ReactNode;
+  }
+
   return (
     <View>
       <AIConversation
         allowAttachments
         messages={messages}
-        handleSendMessage={(message) => {
-          sendMessage(message);
-          if (!conversation?.name) {
-            client.generations
-              .chatNamer({
-                content: message.content.map((c) => c.text ?? "").join(""),
-              })
-              .then((res) => {
-                updateConversation({
-                  id,
-                  name: res.data?.name ?? "",
-                });
-              });
-          }
-        }}
+        handleSendMessage={handleSendMessage}
         onFileSelect={handleImageUpload}
         acceptedFileTypes={['image/*']}
         isLoading={isLoading}
@@ -177,7 +203,7 @@ export const ChatIdPage = () => {
             macroDistribution: getMacrosByDiet(preferences.mealPlanType),
           }
         })}
-        customInputArea={({ textArea, attachButton }) => (
+        customInputArea={({ textArea, attachButton }: CustomInputAreaProps) => (
           <Flex direction="row" alignItems="center" width="100%">
             {textArea}
             {attachButton}

@@ -15,10 +15,16 @@ import {
 
 import { useAIGeneration } from "../client";
 
+interface RecipeData {
+  name?: string;
+  ingredients?: string[];
+  instructions?: string;
+}
+
 export function RecipeGenerator() {
   const [description, setDescription] = React.useState("");
   const [{ data, isLoading, hasError, ...rest }, generateRecipe] =
-    useAIGeneration("generateRecipe");
+    useAIGeneration<RecipeData>("generateRecipe");
 
   console.log({ rest });
 
@@ -51,7 +57,7 @@ export function RecipeGenerator() {
             <Heading level={2}>{data?.name}</Heading>
 
             <View as="ul">
-              {data?.ingredients?.map((ingredient) => (
+              {data?.ingredients?.map((ingredient: string) => (
                 <Text as="li" key={ingredient}>
                   {ingredient}
                 </Text>
