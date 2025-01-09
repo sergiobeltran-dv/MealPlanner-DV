@@ -63,7 +63,7 @@ export const ConversationsProvider = ({
 
   const createConversation = async () => {
     const { data: conversation } = await client.conversations.chat.create({
-      initialMessage: {
+      content: {
         text: "Hello! I'm your meal planning assistant. I can help you with:\n" +
               "- Creating personalized meal plans\n" +
               "- Finding and sharing recipes with detailed cooking instructions\n" +

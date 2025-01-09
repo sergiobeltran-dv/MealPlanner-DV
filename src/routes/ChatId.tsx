@@ -9,8 +9,7 @@ import remarkGfm from "remark-gfm";
 import * as pdfjsLib from 'pdfjs-dist';
 import { UserPreferencesContext } from "../contexts/UserPreferencesContext";
 import { getSeason, getCurrentMealTime, getMacrosByDiet } from '../utils/mealContextHelpers';
-import { FiPaperclip, FiFile } from "react-icons/fi";
-import { TextItem, TextMarkedContent } from 'pdfjs-dist/types/src/display/api';
+import { FiFile } from "react-icons/fi";
 
 // Set worker path
 pdfjsLib.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.js`;
@@ -30,18 +29,12 @@ interface Attachment {
 
 // Update the message content types
 interface MessageContent {
-  text?: string;
-  attachment?: File;
-  toolResult?: any; // Add required property
+  text: string;
+  toolUse?: any;
 }
 
 interface SendMessageParams {
   content: MessageContent[];
-}
-
-interface PDFTextItem {
-  str: string;
-  // Add other properties if needed
 }
 
 export const ChatIdPage = () => {
@@ -64,7 +57,7 @@ export const ChatIdPage = () => {
     if (file.type.startsWith('image/')) {
       sendMessage({
         content: [{
-          type: 'attachment' as const,
+          text: `Uploaded image: ${file.name}`,
           attachment: file
         }]
       });
@@ -94,7 +87,6 @@ export const ChatIdPage = () => {
         
         sendMessage({
           content: [{
-            type: 'text' as const,
             text: fullText
           }]
         });

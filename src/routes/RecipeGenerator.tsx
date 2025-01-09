@@ -22,33 +22,35 @@ interface RecipeData {
 }
 
 export function RecipeGenerator() {
-  const [{ data = {}, isLoading, hasError }, generateRecipe] =
-    useAIGeneration<{ data: RecipeData }>("generateRecipe");
+  const [description, setDescription] = React.useState("");
+  const [{ data, isLoading }, generateRecipe] = useAIGeneration("generateRecipe");
 
-  // Type assertion for data
+  const handleClick = () => {
+    generateRecipe({ description });
+  };
+
   const recipeData = data as RecipeData;
   
   return (
     <Flex direction="column" flex="1" className="recipe-page">
       <Flex direction="row" padding="small">
-      <Flex className="recipeGenerator-search">
-        <TextAreaField
-          autoResize
-          flex="1"
-          rows={1}
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          label="Description"
-          labelHidden
-        />
-        <Button onClick={handleClick}>Generate recipe</Button>
+        <Flex className="recipeGenerator-search">
+          <TextAreaField
+            autoResize
+            flex="1"
+            rows={1}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            label="Description"
+            labelHidden
+          />
+          <Button onClick={handleClick}>Generate recipe</Button>
         </Flex>
       </Flex>
       {isLoading ? (
         <Loader variation="linear" />
       ) : (
         <>
-          {/* {hasError ? <Text>{message}</Text> : null} */}
           <ScrollView padding="large">
             <Heading level={2}>{recipeData.name}</Heading>
 
